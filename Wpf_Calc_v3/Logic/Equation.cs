@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using System;
 
-namespace Wpf_Calc_v3.Logic
+namespace lukaKry_Calc_Wpf.Logic
 {
     internal class Equation
     {
@@ -8,6 +9,7 @@ namespace Wpf_Calc_v3.Logic
 
         public decimal Solve()
         {
+            throw new NotImplementedException();
             // solves the whole current equation
             // foreach(var calc in _calculations) calc.Calculate()
         }

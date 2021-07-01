@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wpf_Calc_v3.Logic
+namespace lukaKry_Calc_Wpf.Logic
 {
     public class Controller
     {

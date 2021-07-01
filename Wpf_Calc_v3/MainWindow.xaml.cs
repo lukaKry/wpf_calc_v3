@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Wpf_Calc_v3
+namespace lukaKry_Calc_Wpf
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

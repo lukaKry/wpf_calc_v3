@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using System;
 
-namespace Wpf_Calc_v3.Logic
+namespace lukaKry_Calc_Wpf.Logic
 {
     internal class Calculator
     {
@@ -26,6 +27,7 @@ namespace Wpf_Calc_v3.Logic
 
         public decimal GetResult()
         {
+            throw new NotImplementedException();
             //return _currentEquation.Solve();
         }
     }

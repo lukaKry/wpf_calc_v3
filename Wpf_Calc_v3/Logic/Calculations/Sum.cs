@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Wpf_Calc_v3.Logic.Calculations;
+using lukaKry_Calc_Wpf.Logic.Calculations;
 
-namespace Wpf_Calc_v3.Logic
+namespace lukaKry_Calc_Wpf.Logic
 {
     public class Sum : BaseCalculation ,ICalculation
     {

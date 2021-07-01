@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wpf_Calc_v3.Logic.Calculations
+namespace lukaKry_Calc_Wpf.Logic.Calculations
 {
     public class Subtraction : BaseCalculation, ICalculation
     {

@@ -1,4 +1,4 @@
-﻿namespace Wpf_Calc_v3.Logic
+﻿namespace lukaKry_Calc_Wpf.Logic
 {
     internal class Display
     {
