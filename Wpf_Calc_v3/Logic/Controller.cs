@@ -16,15 +16,15 @@ namespace lukaKry_Calc_Wpf.Logic
             // _calculator.EditEquation()
         }
         public void NumberBtnPressed() 
-        { 
+        {
             // _calculator.EditEquation()
-            // _display.EditContent()
+            // _display.EditMainDisplayContent()
         }
         public void EqualSignBtnPressed() 
         { 
             // _calculator.GetResutl()
             // _calculator.AddEquationToTheHistory()
-            // _display.EditContent()
+            // _display.EditMainDisplayContent()
         }
         public void Reset()
         {
