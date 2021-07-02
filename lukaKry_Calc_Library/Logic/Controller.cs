@@ -21,10 +21,13 @@ namespace lukaKry_Calc_Library.Logic
             // _display.EditMainDisplayContent()
         }
         public void EqualSignBtnPressed() 
-        { 
+        {
             // _calculator.GetResutl()
             // _calculator.AddEquationToTheHistory()
             // _display.EditMainDisplayContent()
+
+            
+            
         }
         public void Reset()
         {

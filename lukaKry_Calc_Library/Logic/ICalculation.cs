@@ -10,6 +10,6 @@ namespace lukaKry_Calc_Library.Logic
 {
     interface ICalculation
     {
-        decimal GetResult();
+        internal decimal GetResult();
     }
 }

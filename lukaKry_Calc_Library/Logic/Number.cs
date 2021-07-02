@@ -9,7 +9,8 @@ namespace lukaKry_Calc_Library.Logic
     internal class Number : ICalculation
     {
         private decimal _arg1;
-        public decimal GetResult()
+
+        decimal ICalculation.GetResult()
         {
             return _arg1;
         }
@@ -17,5 +18,6 @@ namespace lukaKry_Calc_Library.Logic
         {
             _arg1 = arg;
         }
+
     }
 }

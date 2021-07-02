@@ -4,7 +4,7 @@ using NUnit.Framework;
     
 namespace lukaKry_Calc_Library.UnitTests
 {
-    class CalculationSumTests
+    class SumTests
     {
         [SetUp]
         public void Setup()
