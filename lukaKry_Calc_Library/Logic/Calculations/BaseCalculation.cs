@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lukaKry_Calc_Wpf.Logic.Calculations
+namespace lukaKry_Calc_Library.Logic.Calculations
 {
     public class BaseCalculation
     {

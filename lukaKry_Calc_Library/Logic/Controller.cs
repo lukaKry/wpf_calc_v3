@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lukaKry_Calc_Wpf.Logic
+namespace lukaKry_Calc_Library.Logic
 {
     public class Controller
     {
         private Calculator _calculator = new();
-        private Display _display = new();       // dla poćwiczenia, można tu wbić interfejs IDisplay
+        private Display _display = new();
 
         public void SymbolBtnPressed() 
         { 

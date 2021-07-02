@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace lukaKry_Calc_Wpf
+namespace lukaKry_Calc_Library
 {
     /// <summary>
     /// Interaction logic for App.xaml

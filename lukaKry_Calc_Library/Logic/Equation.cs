@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System;
 
-namespace lukaKry_Calc_Wpf.Logic
+namespace lukaKry_Calc_Library.Logic
 {
     internal class Equation
     {
         private List<ICalculation> _calculations = new();
 
-        public decimal Solve()
+        internal decimal Solve()
         {
             throw new NotImplementedException();
             // solves the whole current equation
