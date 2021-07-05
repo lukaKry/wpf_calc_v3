@@ -1,7 +1,8 @@
 ﻿using lukaKry_Calc_Library.Logic;
 using lukaKry_Calc_Library.Logic.Calculations;
 using NUnit.Framework;
-    
+using System;
+
 namespace lukaKry_Calc_Library.UnitTests
 {
     class SumTests
@@ -16,24 +17,21 @@ namespace lukaKry_Calc_Library.UnitTests
         
             2+2=4
             2+2+2=6
-            
+            no args set = 0
 
         */
 
 
         [Test]
         [TestCase(2, 2, 4)]
-        public void Calculate_WithSetBothArgs_CorrectResult(decimal arg1, decimal arg2, decimal outcome)
+        public void GetResult_WithBothArgsSet_CorrectResult(decimal arg1, decimal arg2, decimal outcome)
         {
-            Number num1 = new(arg1);
+            Sum sum = new()
+            {
+                Arg1 = new Number(arg1),
+                Arg2 = new Number(arg2)
+            };
 
-            Sum sum = new();
-            sum.SetArg1(num1);
-
-            Number num2 = new(arg2);
-
-            // pressed = sign button
-            sum.SetArg2(num2);
             var result = sum.GetResult();
 
             Assert.That(result, Is.EqualTo(outcome));
@@ -42,31 +40,33 @@ namespace lukaKry_Calc_Library.UnitTests
 
         [Test]
         [TestCase(2, 2, 2, 6)]
-        public void Calculate_WithSetBothArgs_CorrectResult(decimal arg1, decimal arg2, decimal arg3, decimal outcome)
+        public void GetResult_WithAllArgsSet_CorrectResult(decimal arg1, decimal arg2, decimal arg3, decimal outcome)
         {
-            // pressed number 2 button
-            Number num1 = new(arg1);
+            Sum sum = new() 
+            {
+                Arg1 = new Number(arg1),
+                Arg2 = new Sum() 
+                {
+                    Arg1 = new Number(arg2),
+                    Arg2 = new Number(arg3)
+                }
+            };
 
-            // pressed + sign button
-            Sum sum1 = new();
-            sum1.SetArg1(num1);
-
-            // pressed number 2 button
-            Number num2 = new(arg2);
-
-            // pressed + sing button
-            Sum sum2 = new();
-            sum2.SetArg1(num2);
-            sum1.SetArg2(sum2);
-
-            // pressed number 2 button
-            Number num3 = new(arg3);
-
-            // pressed = sign button
-            sum2.SetArg2(num3);
-            var result = sum1.GetResult();
+            var result = sum.GetResult();
 
             Assert.That(result, Is.EqualTo(outcome));
+
+        }
+
+
+        [Test]
+        public void GetResult_NoArgsSet_GetResultsFromDefaultArgsValues()
+        {
+            Sum sum = new();
+            var result = sum.GetResult();
+            Assert.That(result, Is.EqualTo(0));
+
+            //Assert.That(() => sum.GetResult(), Throws.Exception.TypeOf<NullReferenceException>());
         }
 
     }

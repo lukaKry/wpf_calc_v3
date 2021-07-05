@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-[assembly: InternalsVisibleTo("lukaKry_Calc_Library.UnitTests")]
 namespace lukaKry_Calc_Library.Logic.Calculations
 {
-    internal class Sum : BaseCalculation, ICalculation
+    class Subtraction : BaseCalculation, ICalculation
     {
         public decimal GetResult()
         {
-            return Arg1.GetResult() + Arg2.GetResult();
+            return Arg1.GetResult() - Arg2.GetResult();
         }
     }
 }

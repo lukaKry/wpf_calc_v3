@@ -8,7 +8,13 @@ namespace lukaKry_Calc_Library.Logic.Calculations
 {
     public class BaseCalculation
     {
-        protected decimal _arg1;
-        protected decimal _arg2;
+        internal ICalculation Arg1 { get; set; }
+        internal ICalculation Arg2 { get; set; }
+
+        public BaseCalculation()
+        {
+            Arg1 = new Number(0);
+            Arg2 = new Number(0);
+        }
     }
 }
