@@ -19,8 +19,9 @@ namespace lukaKry_Calc_Library.UnitTests
             2 / 2 / 2 = 0.5
             -2 * (-2) * (-2) = -0.5
             
-            na pewno trzeba cos dorzucic z zerem
-            2 / 0 = wyjatek
+            2 / 0 = throws exception
+
+            no args set = 0
             
         */
 
@@ -30,8 +31,8 @@ namespace lukaKry_Calc_Library.UnitTests
         {
             Division division = new()
             {
-                Dividend = new Number(arg1),
-                Divisor = new Number(arg2)
+                Arg1 = new Number(arg1),
+                Arg2 = new Number(arg2)
             };
 
             var result = division.GetResult();
@@ -54,11 +55,11 @@ namespace lukaKry_Calc_Library.UnitTests
 
             Division division = new()
             {
-                Divisor = new Number(arg1),
-                Dividend = new Division()
+                Arg2 = new Number(arg1),
+                Arg1 = new Division()
                 {
-                    Divisor = new Number(arg2),
-                    Dividend = new Number(arg3)
+                    Arg2 = new Number(arg2),
+                    Arg1 = new Number(arg3)
                 }
             };
 
@@ -78,8 +79,8 @@ namespace lukaKry_Calc_Library.UnitTests
             {
                 Division division = new()
                 {
-                    Dividend = new Number(arg1),
-                    Divisor = new Number(arg2)
+                    Arg1 = new Number(arg1),
+                    Arg2 = new Number(arg2)
                 };
             },
             Throws.Exception.TypeOf<DivideByZeroException>() );
@@ -94,8 +95,8 @@ namespace lukaKry_Calc_Library.UnitTests
             {
                 Division division = new()
                 {
-                    Dividend = new Number(2),
-                    Divisor = new Subtraction()
+                    Arg1 = new Number(2),
+                    Arg2 = new Subtraction()
                     {
                         Arg1 = new Number(2),
                         Arg2 = new Number(2)

@@ -3,11 +3,11 @@
   <Class Name="lukaKry_Calc_Library.Logic.Calculator">
     <Position X="6" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAAAAAAAAAAAQAAAAAAAACAAEgAAAAAAAI=</HashCode>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAgAIAAAAAAAAAEAAAASAAAA=</HashCode>
       <FileName>Logic\Calculator.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_currentEquation" />
+      <Field Name="_currentCalculation" />
     </ShowAsAssociation>
   </Class>
   <Class Name="lukaKry_Calc_Library.Logic.Controller">
@@ -29,27 +29,52 @@
       <FileName>Logic\Display.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="lukaKry_Calc_Library.Logic.Equation">
-    <Position X="8.75" Y="2.25" Width="1.5" />
+  <Class Name="lukaKry_Calc_Library.Logic.Number" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="7.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIgAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Logic\Equation.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="lukaKry_Calc_Library.Logic.Number" BaseTypeListCollapsed="true">
-    <Position X="9.5" Y="6.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Logic\Number.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="lukaKry_Calc_Library.Logic.Calculations.BaseCalculation">
-    <Position X="7.5" Y="6.75" Width="1.5" />
+  <Class Name="lukaKry_Calc_Library.Logic.Calculations.BaseCalculation" Collapsed="true">
+    <Position X="2.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Logic\Calculations\BaseCalculation.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="lukaKry_Calc_Library.Logic.Calculations.Sum" Collapsed="true">
+    <Position X="0.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Logic\Calculations\Sum.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="lukaKry_Calc_Library.Logic.Calculations.Subtraction" Collapsed="true">
+    <Position X="2.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Logic\Calculations\Subtraction.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="lukaKry_Calc_Library.Logic.Calculations.Multiplication" Collapsed="true">
+    <Position X="4.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Logic\Calculations\Multiplication.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="lukaKry_Calc_Library.Logic.Calculations.Division" Collapsed="true">
+    <Position X="6" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEA=</HashCode>
+      <FileName>Logic\Calculations\Division.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Interface Name="lukaKry_Calc_Library.Logic.IState" Collapsed="true">
     <Position X="0.5" Y="4" Width="1.5" />
@@ -58,8 +83,8 @@
       <FileName>Logic\IState.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="lukaKry_Calc_Library.Logic.ICalculation">
-    <Position X="8.75" Y="5.5" Width="1.5" />
+  <Interface Name="lukaKry_Calc_Library.Logic.ICalculation" Collapsed="true">
+    <Position X="4.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Logic\ICalculation.cs</FileName>

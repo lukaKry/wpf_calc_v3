@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 [assembly: InternalsVisibleTo("lukaKry_Calc_Library.UnitTests")]
 namespace lukaKry_Calc_Library.Logic
 {
-    interface ICalculation
+    public interface ICalculation
     {
         decimal GetResult();
+
+        ICalculation Arg1 { set; }     // a moze wylaczyc gettera na argumentach? skoro jest potrzebna tylko metoda getResult
+        ICalculation Arg2 { set; }
     }
 }

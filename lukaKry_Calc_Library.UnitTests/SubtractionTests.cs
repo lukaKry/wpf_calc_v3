@@ -18,6 +18,7 @@ namespace lukaKry_Calc_Library.UnitTests
             2 - 2 = 0
             2 - 2 - 2 = -2
             -2 - (-2) - (-2) = 2
+
             no args set = 0
 
         */

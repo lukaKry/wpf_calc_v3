@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace lukaKry_Calc_Library.Logic.States
 {
-    class StateEdiNumber : IState
+    class StateEditNumber
     {
         public void ClickSymbol()
         {

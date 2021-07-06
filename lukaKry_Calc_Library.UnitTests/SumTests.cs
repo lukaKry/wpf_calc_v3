@@ -1,7 +1,6 @@
 ﻿using lukaKry_Calc_Library.Logic;
 using lukaKry_Calc_Library.Logic.Calculations;
 using NUnit.Framework;
-using System;
 
 namespace lukaKry_Calc_Library.UnitTests
 {
@@ -15,8 +14,9 @@ namespace lukaKry_Calc_Library.UnitTests
 
         /* Test cases:
         
-            2+2=4
-            2+2+2=6
+            2 + 2 = 4
+            2 + 2 + 2 = 6
+
             no args set = 0
 
         */

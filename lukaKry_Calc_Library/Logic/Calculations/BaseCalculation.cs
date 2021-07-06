@@ -8,8 +8,8 @@ namespace lukaKry_Calc_Library.Logic.Calculations
 {
     public class BaseCalculation
     {
-        internal ICalculation Arg1 { get; set; }
-        internal ICalculation Arg2 { get; set; }
+        public ICalculation Arg1 { get; set; }
+        public ICalculation Arg2 { get; set; }
 
         public BaseCalculation()
         {

@@ -18,7 +18,7 @@ namespace lukaKry_Calc_Library.UnitTests
             2 * 2 * 2 = 8
             -2 * (-2) * (-2) = -8
             
-
+            no args set = 0
         */
 
         [Test]

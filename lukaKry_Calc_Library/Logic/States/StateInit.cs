@@ -6,40 +6,32 @@ using System.Threading.Tasks;
 
 namespace lukaKry_Calc_Library.Logic.States
 {
-    internal class StateInit : IState
+    internal class StateInit : State
     {
         Controller _controller;
 
-        public StateInit(Controller controller)
+        public StateInit(Controller controller) : base(controller)
         {
             _controller = controller;
         }
 
-        void ClickSymbol() 
+        internal override void ClickSymbol() 
         { 
             // does nothing 
         }
-        void ClickNumber() 
+        internal override void ClickNumber(string digit) 
         {
-            //_controller.State = new 
-
-            // _calculator.EditEquation()
-            // _display.EditMainDisplayContent()
-
-
+            _controller.Display.MainDisplay += digit;
         }
-        void ClickComma() 
+        internal override void ClickComma() 
         {
-            // _display.EditMainDisplayContent();
+            _controller.Display.MainDisplay += ",";
+
+            _controller.State = new StateEditFloatingPointNumber(_controller);
         }
-        void ClickEqualSign() 
+        internal override void ClickEqualSign() 
         { 
             // does nothing
-        }
-
-        void IState.ClickSymbol()
-        {
-            throw new NotImplementedException();
         }
     }
 }

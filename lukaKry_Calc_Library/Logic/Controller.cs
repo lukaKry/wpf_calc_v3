@@ -9,27 +9,39 @@ namespace lukaKry_Calc_Library.Logic
 {
     public class Controller
     {
-        internal IState State { get; set; }
-        private Calculator _calculator = new();
-        private Display _display = new();
+        internal State State { get; set; }
+        internal Calculator Calculator { get; set; }
+        internal Display Display = new();
 
         public Controller()
         {
-            State = new StateInit(this);
+           State = new StateInit(this);
         }
 
         public void SymbolBtnPressed() 
         {
-            State.ClickSymbol();
+           // State.ClickSymbol();
         }
-        public void NumberBtnPressed() 
+        public void NumberBtnPressed(string digit) 
         {
-            State.ClickNumber();
+            State.ClickNumber(digit);
+            
+            Display.MainDisplay += digit;
+
+
+            /*
+            decimal result;
+
+            if (decimal.TryParse(digit, out result))
+                if (result >= 0 && result <= 9)
+                    _calculator.EditCalculationsArg2(new Number(result));
+            */
+
         }
 
         public void CommaBtnPressed()
         {
-            State.ClickComma();
+           // State.ClickComma();
         }
 
         public void EqualSignBtnPressed() 
@@ -43,8 +55,7 @@ namespace lukaKry_Calc_Library.Logic
         }
         public void Reset()
         {
-            _calculator = new();
-            _display = new();
+            
         }
 
     }

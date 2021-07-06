@@ -10,8 +10,8 @@ namespace lukaKry_Calc_Library.Logic.Calculations
     {
         private ICalculation _divisor;
 
-        public ICalculation Dividend { get; set; }
-        public ICalculation Divisor 
+        public ICalculation Arg1 { get; set; }
+        public ICalculation Arg2 
         {
             get
             {
@@ -27,12 +27,12 @@ namespace lukaKry_Calc_Library.Logic.Calculations
 
         public Division()
         {
-            Divisor = new Number(1);
-            Dividend = new Number(0);
+            Arg2 = new Number(1);
+            Arg1 = new Number(0);
         }
         public decimal GetResult()
         {
-            return Dividend.GetResult() / Divisor.GetResult();
+            return Arg1.GetResult() / Arg2.GetResult();
         }
     }
 }

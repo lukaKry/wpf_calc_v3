@@ -1,33 +1,96 @@
 ﻿using System.Collections.Generic;
 using System;
+using lukaKry_Calc_Library.Logic.Calculations;
 
 namespace lukaKry_Calc_Library.Logic
 {
-    internal class Calculator
+    public class Calculator
     {
-        Equation _currentEquation = new();
-        List<Equation> _equationsHistory = new();
+        ICalculation _currentCalculation;
+        IRegistry _calculationsRegistry;
 
-        internal void ResetEquation()
+        public Calculator(IRegistry registry)
         {
-            _currentEquation = new();
+            _calculationsRegistry = registry;
         }
 
-        internal void AddCurrentEquationToHistory()
+        public void AddCalculationToRegistry(ICalculation calc)
         {
-            _equationsHistory.Add(_currentEquation);
+            _calculationsRegistry.AddItemToRegistry(calc);
         }
 
-        internal Equation GetLastEquation()
+        public ICalculation GetLastCalculationFromRegistry()
         {
-            // if _equationsHistory is not empty
-            return _equationsHistory[^1];
+            return _calculationsRegistry.GetLastItemFromRegistry();
         }
 
-        internal decimal GetResult()
+        public void EditCalculationAddNumber(decimal num)
         {
-            throw new NotImplementedException();
-            //return _currentEquation.Solve();
+            // trzy opcje 
+
+            // 1 - _currentCalculation is null      ustaw nowa instancje obiektu typu Number
+
+            // 2 - _currentCalculation is Number    - zmien argument na nowo wprowadzony
+
+            // 3 - _currentCalculation is Sum, Subtraction, Multiplication, Division    -  ustaw nowa instancje obiektu jako argument1 istniejacego obiektu
+
+            if (_currentCalculation is null)
+            {
+                _currentCalculation = new Number(num);
+            }
+            else
+            {
+                if (_currentCalculation is Number)
+                {
+                    _currentCalculation = new Number(num);
+                }
+                else
+                {
+                    _currentCalculation.Arg1 = new Number(num);
+                }
+            }
+        }
+
+        public void AddCalculationType(string symbol)
+        {
+            // trzy opcje 
+
+            // 1 - _currentCalculation is null      ustaw nowa instancje obiektu typu Icalculation  -- >> moze jednak factory method
+
+            // 2 - _currentCalculation is Number    - ustaw nowa instancje obiektu typu ICalculation, ale dopisz do niej jeszcze wartosc ze starego numeru
+
+            // 3 - _currentCalculation is Sum, Subtraction, Multiplication, Division    -  ustaw nowa instancje obiektu jako argument1 istniejacego obiektu
+            
+
+            if(_currentCalculation is null)
+            {
+                _currentCalculation = CalculationTypeFactory.GetCalculationType(symbol);
+            }
+            else
+            {
+                if(_currentCalculation is Number)
+                {
+                    decimal oldArgument = _currentCalculation.GetResult();
+                    _currentCalculation = CalculationTypeFactory.GetCalculationType(symbol);
+                    _currentCalculation.Arg2 = new Number(oldArgument);
+                }
+                else
+                {
+                    _currentCalculation.Arg1 = CalculationTypeFactory.GetCalculationType(symbol);
+                }
+            }
+        }
+
+        public decimal GetResult()
+        {
+            if (_currentCalculation is null) throw new InvalidOperationException();
+
+            return _currentCalculation.GetResult();
+        }
+
+        public void ResetCurrentCalculation()
+        {
+            _currentCalculation = null;
         }
     }
 }
