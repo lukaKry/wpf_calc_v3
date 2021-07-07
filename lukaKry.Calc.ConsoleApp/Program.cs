@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using lukaKry_Calc_Library.Logic;
 
 namespace lukaKry.Calc.ConsoleApp
@@ -7,9 +8,11 @@ namespace lukaKry.Calc.ConsoleApp
     {
         static void Main(string[] args)
         {
-            // create instances for calculator and registry
+            // create instances for calculator, registry and calculation builder, add dictionary
             var registry = new RegistryConsoleApp();
-            var calculator = new Calculator(registry);
+            var calculationBuilder = new SimpleCalculationBuilder();
+            var calculator = new Calculator(registry, calculationBuilder);
+            var calcDictionary = new CalculationsDictionary();
 
             bool restart = false;
             do
@@ -24,8 +27,7 @@ namespace lukaKry.Calc.ConsoleApp
                     if (!correctInput) Console.WriteLine("Wrong input.");
                 } while (!correctInput);
 
-                calculator.EditCalculationAddNumber(firstNum);
-
+                calculationBuilder.AddNumber(firstNum);
 
                 // choose type of calculation
                 correctInput = false;
@@ -38,8 +40,8 @@ namespace lukaKry.Calc.ConsoleApp
                     if (!correctInput) Console.WriteLine("Wrong input.");
                 } while (!correctInput);
 
-                calculator.AddCalculationType(calcTypeChoice);
-
+                calcDictionary.GetDictionary().Clear();
+                calculationBuilder.AddCalculation(calcDictionary.GetDictionary()[calcTypeChoice]);
 
                 // second number input 
                 correctInput = false;
@@ -53,10 +55,10 @@ namespace lukaKry.Calc.ConsoleApp
 
                 try
                 {
-                    calculator.EditCalculationAddNumber(secondNum);
+                    calculationBuilder.AddNumber(secondNum);
                     Console.WriteLine("result is: " + calculator.GetResult());
                 }
-                catch ( DivideByZeroException e)
+                catch ( Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }

@@ -11,8 +11,5 @@ namespace lukaKry_Calc_Library.Logic
     public interface ICalculation
     {
         decimal GetResult();
-
-        ICalculation Arg1 { set; }     // jednak lepiej wywalic te settery gdzies indziej; 
-        ICalculation Arg2 { set; }
     }
 }

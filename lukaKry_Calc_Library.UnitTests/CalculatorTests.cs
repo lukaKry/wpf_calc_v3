@@ -13,7 +13,7 @@ namespace lukaKry_Calc_Library.UnitTests
         public void SetUp()
         {
             _registry = new RegistrySimple();
-            _calc = new Calculator(_registry);
+            //_calc = new Calculator(_registry);
         }
 
 
@@ -75,7 +75,7 @@ namespace lukaKry_Calc_Library.UnitTests
         [Test]
         public void GetResult_CurrentCalculationNotNull_ReturnsDecimalValue()
         {
-            _calc.EditCalculationAddNumber(1);
+            //_calc.EditCalculationAddNumber(1);
 
             var result = _calc.GetResult();
 
