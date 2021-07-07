@@ -93,6 +93,9 @@ namespace lukaKry_Calc_Library.Logic
             _currentCalculation = null;
         }
 
-        
+        public void testmethod()
+        {
+            // this is test method
+        }
     }
 }
