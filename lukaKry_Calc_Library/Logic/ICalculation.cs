@@ -12,7 +12,7 @@ namespace lukaKry_Calc_Library.Logic
     {
         decimal GetResult();
 
-        ICalculation Arg1 { set; }     // a moze wylaczyc gettera na argumentach? skoro jest potrzebna tylko metoda getResult
+        ICalculation Arg1 { set; }     // jednak lepiej wywalic te settery gdzies indziej; 
         ICalculation Arg2 { set; }
     }
 }

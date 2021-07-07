@@ -92,5 +92,7 @@ namespace lukaKry_Calc_Library.Logic
         {
             _currentCalculation = null;
         }
+
+        
     }
 }

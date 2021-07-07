@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\lukaKry_Calc_Library\lukaKry_Calc_Library.csproj" />
+  </ItemGroup>
+
 </Project>

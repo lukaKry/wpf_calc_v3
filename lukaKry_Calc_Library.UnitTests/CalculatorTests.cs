@@ -21,6 +21,7 @@ namespace lukaKry_Calc_Library.UnitTests
         public void AddCalculationToRegistry_WhenCalled_WhatToExpect()
         {
            // jak to przetestowac ? 
+           // pole jest prywatne, jak sprawdzic czy uleglo zmianie ? 
         }
 
 
@@ -32,9 +33,15 @@ namespace lukaKry_Calc_Library.UnitTests
 
 
         [Test]
-        public void EditCalculationAddNumber_WhenCurrentCalculationIsNotNull_AssignNumber()
+        public void EditCalculationAddNumber_WhenCurrentCalculationIsNumber_ChangeNumber()
         {
             // jak to przetestowac ?
+        }
+
+        [Test]
+        public void EditCalculationAddNumber_WhenCurrentCalculationIsNotNumberAndNull__AddNumberAsArg2()
+        {
+
         }
 
 
