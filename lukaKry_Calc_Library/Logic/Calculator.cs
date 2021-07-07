@@ -46,7 +46,7 @@ namespace lukaKry_Calc_Library.Logic
                 }
                 else
                 {
-                    _currentCalculation.Arg1 = new Number(num);
+                    _currentCalculation.Arg2 = new Number(num);
                 }
             }
         }
@@ -72,11 +72,11 @@ namespace lukaKry_Calc_Library.Logic
                 {
                     decimal oldArgument = _currentCalculation.GetResult();
                     _currentCalculation = CalculationTypeFactory.GetCalculationType(symbol);
-                    _currentCalculation.Arg2 = new Number(oldArgument);
+                    _currentCalculation.Arg1 = new Number(oldArgument);
                 }
                 else
                 {
-                    _currentCalculation.Arg1 = CalculationTypeFactory.GetCalculationType(symbol);
+                    _currentCalculation.Arg2 = CalculationTypeFactory.GetCalculationType(symbol);
                 }
             }
         }
