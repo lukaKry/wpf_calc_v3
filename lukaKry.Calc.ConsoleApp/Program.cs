@@ -9,14 +9,18 @@ namespace lukaKry.Calc.ConsoleApp
         static void Main(string[] args)
         {
             // create instances for calculator, registry and calculation builder, add dictionary
-            var registry = new RegistryConsoleApp();
-            var calculationBuilder = new SimpleCalculationBuilder();
-            var calculator = new Calculator(registry, calculationBuilder);
-            var calcDictionary = new CalculationsDictionary();
+            
+            var provider = new CalculationsFactoryProvider();
 
             bool restart = false;
             do
             {
+                Console.Clear();
+                var registry = new RegistryConsoleApp();
+                var calculationBuilder = new SimpleCalculationBuilder();
+                var calculator = new Calculator(registry, calculationBuilder);
+
+
                 // first number input
                 var correctInput = false;
                 decimal firstNum;
@@ -40,8 +44,7 @@ namespace lukaKry.Calc.ConsoleApp
                     if (!correctInput) Console.WriteLine("Wrong input.");
                 } while (!correctInput);
 
-                calcDictionary.GetDictionary().Clear();
-                calculationBuilder.AddCalculation(calcDictionary.GetDictionary()[calcTypeChoice]);
+                calculationBuilder.AddCalculation(provider[GetCalculationType(calcTypeChoice)].Create());
 
                 // second number input 
                 correctInput = false;
@@ -67,11 +70,23 @@ namespace lukaKry.Calc.ConsoleApp
                 Console.WriteLine("Restart? (y/n)");
                 var answer = Console.ReadLine();
                 if (answer == "y") restart = true;
-                Console.Clear();
-                calculator.ResetCurrentCalculation();
+                
+
 
             } while (restart);
             Console.WriteLine("Bye bye");
+        }
+
+        private static CalculationType GetCalculationType(string calcTypeChoice)
+        {
+            switch (calcTypeChoice) 
+            {
+                case "-": return CalculationType.Subtraction;
+                case "*": return CalculationType.Multiplication;
+                case "/": return CalculationType.Division;
+                default: return CalculationType.Sum;
+            }
+
         }
 
         private static bool CalculationTypeChoiceCheck(string calcTypeChoice)

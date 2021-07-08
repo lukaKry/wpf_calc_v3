@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace lukaKry_Calc_Library.Logic.Calculations
 {
-    public class BaseCalculation : ISettable
+    public class BaseCalculation : ISettableCalculation
     {
         public ICalculation Arg1 { get; set; }
         public ICalculation Arg2 { get; set; }

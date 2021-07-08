@@ -10,7 +10,6 @@ namespace lukaKry_Calc_Library.Logic
     {
         private decimal _arg1;
         public ICalculation Arg1 { get; set; }
-        public ICalculation Arg2 { get; set; }
 
         public Number(decimal arg)
         {

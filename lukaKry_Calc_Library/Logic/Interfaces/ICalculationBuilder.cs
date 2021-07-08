@@ -3,7 +3,6 @@
     public interface ICalculationBuilder
     {
         void AddNumber(decimal number);
-        void AddCalculation(ISettable calculation);
         ICalculation Build();
     }
 }

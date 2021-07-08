@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace lukaKry_Calc_Library.Logic.Calculations
 {
-    class Division : ICalculation, ISettable
+    class Division : ICalculation, ISettableCalculation
     {
         private ICalculation _divisor;
 

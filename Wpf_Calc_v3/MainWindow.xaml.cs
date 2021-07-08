@@ -39,13 +39,15 @@ namespace lukaKry_Calc_Library
             }
         }
         public RegistryWpfApp Registry { get; set; } = new();
+        public ICalculationBuilder Builder { get; set; } = new SimpleCalculationBuilder();
 
 
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
-            Calculator = new(Registry);
+            Calculator = new(Registry, Builder);
+
         }
 
 
@@ -65,7 +67,7 @@ namespace lukaKry_Calc_Library
             Button button = (Button)sender;
             try
             {
-                Calculator.EditCalculationAddNumber(Convert.ToDecimal(button.Uid));
+                Builder.AddNumber(Convert.ToDecimal(button.Uid));
                 MainDisplay += button.Uid;
             }
             catch ( DivideByZeroException ex)
@@ -78,7 +80,7 @@ namespace lukaKry_Calc_Library
         {
             Button button = (Button)sender;
             MainDisplay += button.Uid;
-            Calculator.AddCalculationType(button.Uid);
+            Builder.AddCalculation(button.Uid);
         }
 
         private void On_EqualSignButton_Clicked(object sender, RoutedEventArgs e)
@@ -89,6 +91,18 @@ namespace lukaKry_Calc_Library
 
         private void On_CommaButton_Clicked(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private static CalculationType GetCalculationType(string calcTypeChoice)
+        {
+            switch (calcTypeChoice)
+            {
+                case "-": return CalculationType.Subtraction;
+                case "*": return CalculationType.Multiplication;
+                case "/": return CalculationType.Division;
+                default: return CalculationType.Sum;
+            }
 
         }
     }

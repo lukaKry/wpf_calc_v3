@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace lukaKry_Calc_Library.Logic
 {
-    public class SimpleCalculationBuilder : ICalculationBuilder
+    // change builder to generic one; eventually 
+    public class SimpleCalculationBuilder<T> : ICalculationBuilder where T: ISettableCalculation, new() // to co jest na prawo od "where" to tak jakby wymagania do T; takie warunki 
     {
-        private Dictionary<string, Func<ICalculation>> _dictionary;
-        private ISettable _calculation;
+        private T _calculation;
         private Number _arg1;
         private Number _arg2;
 
-        public void AddCalculation(ISettable calculation)
+        public SimpleCalculationBuilder()
         {
-            _calculation = calculation;
+            _calculation = new T();
         }
 
         public void AddNumber(decimal number)
