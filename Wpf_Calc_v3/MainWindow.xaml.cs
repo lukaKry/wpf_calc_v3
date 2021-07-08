@@ -41,6 +41,8 @@ namespace lukaKry_Calc_Library
         public RegistryWpfApp Registry { get; set; } = new();
         public ICalculationBuilder Builder { get; set; } = new SimpleCalculationBuilder();
 
+        public CalculationsFactoryProvider Provider { get; set; } = new();
+
 
         public MainWindow()
         {
@@ -80,7 +82,7 @@ namespace lukaKry_Calc_Library
         {
             Button button = (Button)sender;
             MainDisplay += button.Uid;
-            Builder.AddCalculation(button.Uid);
+            Builder.AddCalculation(Provider[GetCalculationType(button.Uid)].Create());
         }
 
         private void On_EqualSignButton_Clicked(object sender, RoutedEventArgs e)

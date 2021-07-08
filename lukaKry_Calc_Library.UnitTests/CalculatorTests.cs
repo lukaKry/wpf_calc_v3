@@ -1,19 +1,21 @@
 ﻿using lukaKry_Calc_Library.Logic;
 using lukaKry_Calc_Library.Logic.Calculations;
+using lukaKry_Calc_Library.UnitTests.Mocks;
 using NUnit.Framework;
 
 namespace lukaKry_Calc_Library.UnitTests
 {
     class CalculatorTests
     {
-        private IRegistry _registry;
+        private CalculationsFactoryProvider _provider = new();
+        private IRegistry _registry = new FakeRegistry();
         private Calculator _calc;
+        private SimpleCalculationBuilder _builder = new();
 
         [SetUp]
         public void SetUp()
         {
-            _registry = new RegistrySimple();
-            //_calc = new Calculator(_registry);
+            _calc = new Calculator(_registry, _builder);
         }
 
 

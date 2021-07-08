@@ -10,10 +10,10 @@ namespace lukaKry_Calc_Library.Logic
         IRegistry _calculationsRegistry;
         ICalculationBuilder _builder;
 
-        public Calculator(IRegistry registry, ICalculationBuilder builder)
+        public Calculator(IRegistry registry = null, ICalculationBuilder builder = null)
         {
-            _calculationsRegistry = registry;
-            _builder = builder;
+            _calculationsRegistry = registry ?? new RegistrySimple();
+            _builder = builder ?? new SimpleCalculationBuilder();
         }
 
         public void AddCalculationToRegistry(ICalculation calc)
