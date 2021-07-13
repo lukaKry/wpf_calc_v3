@@ -10,12 +10,12 @@ namespace lukaKry_Calc_Library.UnitTests.Mocks
 {
     class FakeRegistry : IRegistry
     {
-        public void AddItemToRegistry(ICalculation calc)
+        public void AddItem(ICalculation calc)
         {
             throw new NotImplementedException();
         }
 
-        public ICalculation GetLastItemFromRegistry()
+        public ICalculation GetLastItem()
         {
             return new Sum();
         }

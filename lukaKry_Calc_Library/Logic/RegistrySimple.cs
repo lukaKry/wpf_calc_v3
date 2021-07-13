@@ -8,16 +8,18 @@ namespace lukaKry_Calc_Library.Logic
 {
     class RegistrySimple : IRegistry
     {
-        List<ICalculation> _simpleRegistry = new();
-        public void AddItemToRegistry(ICalculation calc)
+        List<ICalculation> _list = new();
+        public int Count => _list.Count;
+
+        public void AddItem(ICalculation calc)
         {
-            _simpleRegistry.Add(calc);
+            _list.Add(calc);
         }
 
-        public ICalculation GetLastItemFromRegistry()
+        public ICalculation GetLastItem()
         {
-            if (_simpleRegistry.Count < 1) throw new InvalidOperationException();
-            return _simpleRegistry[^1];
+            if (!_list.Any()) throw new InvalidOperationException();
+            return _list.Last();
         }
     }
 }

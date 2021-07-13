@@ -11,12 +11,12 @@ namespace lukaKry.Calc.ConsoleApp
     {
         private List<ICalculation> _registry = new();
 
-        public void AddItemToRegistry(ICalculation calc)
+        public void AddItem(ICalculation calc)
         {
             _registry.Add(calc);
         }
 
-        public ICalculation GetLastItemFromRegistry()
+        public ICalculation GetLastItem()
         {
             return _registry[^1];
         }

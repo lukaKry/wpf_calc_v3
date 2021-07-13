@@ -1,7 +1,9 @@
 ﻿using lukaKry_Calc_Library.Logic;
 using lukaKry_Calc_Library.Logic.Calculations;
 using lukaKry_Calc_Library.UnitTests.Mocks;
+using Moq;
 using NUnit.Framework;
+using System;
 
 namespace lukaKry_Calc_Library.UnitTests
 {
@@ -20,64 +22,62 @@ namespace lukaKry_Calc_Library.UnitTests
 
 
         [Test]
-        public void AddCalculationToRegistry_WhenCalled_WhatToExpect()
+        public void SaveCalculation_WhenCalled_CallAddItemOnRegistryObject()
         {
-           // jak to przetestowac ? 
-           // pole jest prywatne, jak sprawdzic czy uleglo zmianie ? 
-        }
+            var registry = new Mock<IRegistry>();
+            _calc = new Calculator(registry.Object);
+            ICalculation calculation = new Sum();
 
+            _calc.SaveCalculation(calculation);
 
-        [Test]
-        public void EditCalculationAddNumber_WhenCurrentCalculationIsNull_AssignNumber()
-        {
-            // jak to przetestowac ?
-        }
-
-
-        [Test]
-        public void EditCalculationAddNumber_WhenCurrentCalculationIsNumber_ChangeNumber()
-        {
-            // jak to przetestowac ?
+            registry.Verify(r => r.AddItem(calculation));
         }
 
         [Test]
-        public void EditCalculationAddNumber_WhenCurrentCalculationIsNotNumberAndNull__AddNumberAsArg2()
+        public void RestoreCalculation_WhenCalled_GetPreviouslySavedCalculation()
         {
+            var registry = new RegistrySimple();
+            _calc = new Calculator(registry);
+            ICalculation calculation = new Sum();
 
+            _calc.SaveCalculation(calculation);
+
+            var result = _calc.RestoreCalculation();
+
+            Assert.That(result, Is.EqualTo(calculation));
         }
 
+        [Test]
+        public void RestoreCalculation_NoCalculationToRestore_ThrowInvalidOperationException()
+        {
+            var registry = new Mock<IRegistry>();
+            registry.Setup(r => r.GetLastItem()).Throws(new InvalidOperationException());
+            _calc = new Calculator(registry.Object);
+
+            Assert.That(() => _calc.RestoreCalculation(), Throws.InvalidOperationException);
+        }
 
         [Test]
         public void ResetCurrentCalculation_WhenCalled_SetFieldToNull()
         {
-            // jak to przetestowac ?
+            _calc.ResetCurrentCalculation();
+
+            var result = _calc.CurrentCalculation;
+
+            Assert.That(result, Is.Null);
         }
-
-
-
-        [Test]
-        public void GetLastCalculationFromRegistry_WhenRegistryNotEmpty_ReturnsICalculationItem() 
-        {
-            _registry.AddItemToRegistry(new Number(1));
-
-            ICalculation result = _calc.GetLastCalculationFromRegistry();
-
-            Assert.That(result, Is.InstanceOf<ICalculation>());
-            // taki test ma sens?   
-        }
-
-
-        [Test]
-        public void GetLastCalculationFromRegistry_WhenRegistryIsEmpty_ThrowsException()
-        {
-            Assert.That(() => _calc.GetLastCalculationFromRegistry() ,Throws.InvalidOperationException);
-        }
-
 
         [Test]
         public void GetResult_CurrentCalculationNotNull_ReturnsDecimalValue()
         {
-            //_calc.EditCalculationAddNumber(1);
+            var builder = new Mock<ICalculationBuilder>();
+            builder.Setup(b => b.Build()).Returns(new Sum()
+            {
+                Arg1 = new Number(1),
+                Arg2 = new Number(1)
+            });
+
+            _calc = new Calculator(new FakeRegistry(), builder.Object);
 
             var result = _calc.GetResult();
 
@@ -86,8 +86,10 @@ namespace lukaKry_Calc_Library.UnitTests
 
 
         [Test]
-        public void GetResutl_CurrentCalculationIsNull_ThrowException()
+        public void GetResult_CurrentCalculationIsNull_ThrowException()
         {
+            _calc.ResetCurrentCalculation();
+
             Assert.That(() => _calc.GetResult(), Throws.InvalidOperationException);
         }
     }
