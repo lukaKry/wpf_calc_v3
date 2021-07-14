@@ -49,5 +49,12 @@ namespace lukaKry_Calc_Library.Logic
 
             return _calculation as ICalculation;
         }
+
+        public override string ToString()
+        {
+            ICalculation calc = _calculation as ICalculation;
+
+            return $"{_calculation.Arg1} {calc.ToString()} {_calculation.Arg2} = {calc.GetResult()}";
+        }
     }
 }

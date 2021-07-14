@@ -21,5 +21,10 @@ namespace lukaKry_Calc_Library.Logic
         {
             return _arg1;
         }
+
+        public override string ToString()
+        {
+            return _arg1.ToString();
+        }
     }
 }

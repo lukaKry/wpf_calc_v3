@@ -12,5 +12,10 @@ namespace lukaKry_Calc_Library.Logic.Calculations
         {
             return Arg1.GetResult() - Arg2.GetResult();
         }
+
+        public override string ToString()
+        {
+            return "-";
+        }
     }
 }

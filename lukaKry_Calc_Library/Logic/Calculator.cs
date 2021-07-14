@@ -43,15 +43,8 @@ namespace lukaKry_Calc_Library.Logic
 
         public decimal GetResult()
         {
-            try
-            {
-                _currentCalculation = _builder.Build();
-                return _currentCalculation.GetResult();
-            }
-            catch ( Exception ex )
-            {
-                throw new InvalidOperationException(ex.Message);
-            }
+            _currentCalculation = _builder.Build();
+            return _currentCalculation.GetResult();
         }
 
         public void ResetCurrentCalculation()
