@@ -1,6 +1,6 @@
-﻿using System;
+﻿using lukaKry.Calc.Library.Logic;
+using System;
 using System.Collections.Generic;
-using lukaKry_Calc_Library.Logic;
 
 namespace lukaKry.Calc.ConsoleApp
 {
