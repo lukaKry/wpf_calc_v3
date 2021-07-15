@@ -8,13 +8,7 @@ namespace lukaKry.Calc.Library.Logic
         ICalculation _currentCalculation;
         ICalculationBuilder _builder;
 
-        public ICalculation CurrentCalculation 
-        { 
-            get 
-            {
-                return _currentCalculation;
-            }
-        }
+        public ICalculation CurrentCalculation => _currentCalculation;
 
         public Calculator(ICalculationBuilder builder = null)
         {
