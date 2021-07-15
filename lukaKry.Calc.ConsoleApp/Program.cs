@@ -8,17 +8,16 @@ namespace lukaKry.Calc.ConsoleApp
     {
         static void Main(string[] args)
         {
-            // create instances for calculator, registry and calculation builder, add dictionary
-            
+            // create instances for calculation builder, archiver
             var provider = new CalculationsFactoryProvider();
+            var archiver = new SimpleCalculationArchiver();
 
             bool restart = false;
             do
             {
                 Console.Clear();
-                var registry = new RegistryConsoleApp();
                 var calculationBuilder = new SimpleCalculationBuilder();
-                var calculator = new Calculator(registry, calculationBuilder);
+                var calculator = new Calculator(calculationBuilder);
 
 
                 // first number input
@@ -60,6 +59,7 @@ namespace lukaKry.Calc.ConsoleApp
                 {
                     calculationBuilder.AddNumber(secondNum);
                     Console.WriteLine("result is: " + calculator.GetResult());
+                    archiver.SaveCalculation(calculationBuilder.ToString());
                 }
                 catch ( Exception e)
                 {
@@ -75,6 +75,20 @@ namespace lukaKry.Calc.ConsoleApp
 
             } while (restart);
             Console.WriteLine("Bye bye");
+
+            // show calculaions history
+            Console.WriteLine("Would You like to see calculations history? (y/n)");
+            var answer2 = Console.ReadLine();
+            if (answer2.ToUpper() == "Y")
+            {
+                var history = archiver.GetAllCalculations();
+
+                foreach( var calc in history)
+                {
+                    Console.WriteLine(calc);
+
+                }
+            }
         }
 
         private static CalculationType GetCalculationType(string calcTypeChoice)

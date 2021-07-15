@@ -16,7 +16,6 @@ namespace lukaKry_Calc_Library.Logic
             _arg1 = arg;
         }
 
-
         public decimal GetResult()
         {
             return _arg1;

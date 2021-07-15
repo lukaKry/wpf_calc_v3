@@ -7,7 +7,6 @@ namespace lukaKry_Calc_Library.Logic
     public class Calculator
     {
         ICalculation _currentCalculation;
-        IRegistry _calculationsRegistry;
         ICalculationBuilder _builder;
 
         public ICalculation CurrentCalculation 
@@ -18,27 +17,9 @@ namespace lukaKry_Calc_Library.Logic
             }
         }
 
-        public Calculator(IRegistry registry = null, ICalculationBuilder builder = null)
+        public Calculator(ICalculationBuilder builder = null)
         {
-            _calculationsRegistry = registry ?? new RegistrySimple();
             _builder = builder ?? new SimpleCalculationBuilder();
-        }
-
-        public void SaveCalculation(ICalculation calc)
-        {
-            _calculationsRegistry.AddItem(calc);
-        }
-
-        public ICalculation RestoreCalculation()
-        {
-            try 
-            {
-                return _calculationsRegistry.GetLastItem();
-            }
-            catch
-            {
-                throw new InvalidOperationException();
-            }
         }
 
         public decimal GetResult()
@@ -51,7 +32,5 @@ namespace lukaKry_Calc_Library.Logic
         {
             _currentCalculation = null;
         }
-
-        // dodać publiczny getter do pola _currentCalculation
     }
 }

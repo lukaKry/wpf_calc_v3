@@ -40,7 +40,6 @@ namespace lukaKry_Calc_Library
         }
         public RegistryWpfApp Registry { get; set; } = new();
         public ICalculationBuilder Builder { get; set; } = new SimpleCalculationBuilder();
-
         public CalculationsFactoryProvider Provider { get; set; } = new();
 
 
@@ -48,7 +47,7 @@ namespace lukaKry_Calc_Library
         {
             InitializeComponent();
             DataContext = this;
-            Calculator = new(Registry, Builder);
+            Calculator = new(Builder);
 
         }
 

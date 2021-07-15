@@ -10,51 +10,13 @@ namespace lukaKry_Calc_Library.UnitTests
     class CalculatorTests
     {
         private CalculationsFactoryProvider _provider = new();
-        private IRegistry _registry = new FakeRegistry();
         private Calculator _calc;
         private SimpleCalculationBuilder _builder = new();
 
         [SetUp]
         public void SetUp()
         {
-            _calc = new Calculator(_registry, _builder);
-        }
-
-
-        [Test]
-        public void SaveCalculation_WhenCalled_CallAddItemOnRegistryObject()
-        {
-            var registry = new Mock<IRegistry>();
-            _calc = new Calculator(registry.Object);
-            ICalculation calculation = new Sum();
-
-            _calc.SaveCalculation(calculation);
-
-            registry.Verify(r => r.AddItem(calculation));
-        }
-
-        [Test]
-        public void RestoreCalculation_WhenCalled_GetPreviouslySavedCalculation()
-        {
-            var registry = new RegistrySimple();
-            _calc = new Calculator(registry);
-            ICalculation calculation = new Sum();
-
-            _calc.SaveCalculation(calculation);
-
-            var result = _calc.RestoreCalculation();
-
-            Assert.That(result, Is.EqualTo(calculation));
-        }
-
-        [Test]
-        public void RestoreCalculation_NoCalculationToRestore_ThrowInvalidOperationException()
-        {
-            var registry = new Mock<IRegistry>();
-            registry.Setup(r => r.GetLastItem()).Throws(new InvalidOperationException());
-            _calc = new Calculator(registry.Object);
-
-            Assert.That(() => _calc.RestoreCalculation(), Throws.InvalidOperationException);
+            _calc = new Calculator(_builder);
         }
 
         [Test]
@@ -77,13 +39,12 @@ namespace lukaKry_Calc_Library.UnitTests
                 Arg2 = new Number(1)
             });
 
-            _calc = new Calculator(new FakeRegistry(), builder.Object);
+            _calc = new Calculator(builder.Object);
 
             var result = _calc.GetResult();
 
             Assert.That(result, Is.TypeOf<decimal>());
         }
-
 
         [Test]
         public void GetResult_CurrentCalculationIsNull_ThrowException()
