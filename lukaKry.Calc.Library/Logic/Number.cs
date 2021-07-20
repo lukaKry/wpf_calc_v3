@@ -30,5 +30,10 @@ namespace lukaKry.Calc.Library.Logic
         {
             return "";
         }
+
+        public string ToShortString()
+        {
+            return ToString();
+        }
     }
 }

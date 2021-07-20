@@ -1,4 +1,5 @@
 ﻿using lukaKry.Calc.Library.Logic;
+using lukaKry.Calc.Library.Logic.CalculationsBuilders;
 using System;
 using System.Collections.Generic;
 
@@ -6,34 +7,59 @@ namespace lukaKry.Calc.ConsoleApp
 {
     class Program
     {
+        private provider = new CalculationsFactoryProvider();
         static void Main(string[] args)
         {
-            // create instances for calculation builder, archiver
+            // create instances for calculation builder, archiver, providers
             var provider = new CalculationsFactoryProvider();
             var archiver = new SimpleCalculationArchiver();
+            var builderProvider = new CalculationBuilderProvider();
 
+            ICalculationBuilder builder = builderProvider[BuilderMode.simple]();
+            
+            if (args.Length > 0)
+            {
+                if (args[0].ToUpper() == "EXTENDED") builder = builderProvider[BuilderMode.extended]();
+            }
+
+            var calculator = new Calculator(builder);
+
+            if( builder is SimpleCalculationBuilder)
+            {
+                RunSimpleCalculationCycle(builder, );
+            }
+            
+            
+
+            Console.WriteLine("Would You like to see calculations history? (y/n)");
+            if (ShouldShowCalculationsHistory(Console.ReadLine()))
+            {
+                ShowCalculationsHistory(archiver);
+            }
+        }
+
+        private static void RunSimpleCalculationCycle(SimpleCalculationBuilder builder)
+        {
             bool restart = false;
             do
             {
                 Console.Clear();
-                var calculationBuilder = new SimpleCalculationBuilder();
-                var calculator = new Calculator(calculationBuilder);
 
                 var firstNum = GetUserInput("first number");
-                calculationBuilder.AddNumber(firstNum);
+                builder.AddNumber(firstNum);
 
                 string calcTypeChoice = GetCalcTypeFromUser();
-                calculationBuilder.AddCalculation(provider[GetCalculationType(calcTypeChoice)].Create());
+                builder.AddCalculation(provider[GetCalculationType(calcTypeChoice)].Create());
 
                 decimal secondNum = GetUserInput("second number");
-                calculationBuilder.AddNumber(secondNum);
+                builder.AddNumber(secondNum);
 
                 try
                 {
                     Console.WriteLine("result is: " + calculator.GetResult());
-                    archiver.AddCalculation(calculationBuilder.Build());
+                    archiver.AddCalculation(builder.Build());
                 }
-                catch ( Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
@@ -42,15 +68,14 @@ namespace lukaKry.Calc.ConsoleApp
                 Console.WriteLine("Restart? (y/n)");
                 var answer = Console.ReadLine();
                 if (answer == "y") restart = true;
-                
+
             } while (restart);
             Console.WriteLine("Bye bye");
+        }
 
-            Console.WriteLine("Would You like to see calculations history? (y/n)");
-            if (ShouldShowCalculationsHistory(Console.ReadLine()))
-            {
-                ShowCalculationsHistory(archiver);
-            }
+        private static void ChooseCalculatorMode(string calculatorMode, ref Calculator calculator)
+        {
+            if ( calculatorMode.ToUpper() == "EXTENDED" ) calculator = new Calculator(new ExtendedCalculationBuilder());
         }
 
         private static bool ShouldShowCalculationsHistory(string answer)
@@ -64,7 +89,7 @@ namespace lukaKry.Calc.ConsoleApp
 
             foreach (var calc in history)
             {
-                Console.WriteLine(calc);
+                Console.WriteLine(calc + " = " + calc.GetResult());
             }
         }
 
@@ -99,7 +124,7 @@ namespace lukaKry.Calc.ConsoleApp
 
         private static CalculationType GetCalculationType(string calcTypeChoice)
         {
-            switch (calcTypeChoice) 
+            switch (calcTypeChoice)
             {
                 case "-": return CalculationType.Subtraction;
                 case "*": return CalculationType.Multiplication;
