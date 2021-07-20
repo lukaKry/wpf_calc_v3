@@ -10,11 +10,11 @@ namespace lukaKry.Calc.Library.UnitTests
         {
             var archiver = new SimpleCalculationArchiver();
 
-            archiver.SaveCalculation("1");
+            archiver.AddCalculation(new Number(1));
 
-            var result = archiver.GetLastCalculation();
+            var result = archiver.GetLastCalculation().GetResult();
 
-            Assert.That(result, Is.EqualTo("1"));
+            Assert.That(result, Is.EqualTo(1));
         }
 
         [Test]

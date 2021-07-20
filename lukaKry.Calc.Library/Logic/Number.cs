@@ -25,5 +25,10 @@ namespace lukaKry.Calc.Library.Logic
         {
             return _arg1.ToString();
         }
+
+        public string GetSymbol()
+        {
+            return "";
+        }
     }
 }

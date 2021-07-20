@@ -6,22 +6,19 @@ using System.Threading.Tasks;
 
 namespace lukaKry.Calc.Library.Logic
 {
-    public class SimpleCalculationArchiver
+    public class SimpleCalculationArchiver : IRegistry
     {
-        // ta klasa rownie dobrze moze przechowywac referencje typu IRegistry
-        // wowczas mozna do niej wstrzyknac dowolny sposob przechowywania danych z interfejsem IRegister
-
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-        private static List<string> _archive = new();
+        private static List<ICalculation> _archive = new();
 
 
-        public void SaveCalculation(string calculation)
+        public void AddCalculation(ICalculation calculation)
         {
             Logger.Info("Calculation archived successfully.");
             _archive.Add(calculation);
         }
 
-        public string GetLastCalculation()
+        public ICalculation GetLastCalculation()
         {
             if (!_archive.Any())
             {
@@ -31,7 +28,7 @@ namespace lukaKry.Calc.Library.Logic
             return _archive.Last();
         }
 
-        public IEnumerable<string> GetAllCalculations()
+        public IEnumerable<ICalculation> GetAllCalculations()
         {
             return _archive;
         }

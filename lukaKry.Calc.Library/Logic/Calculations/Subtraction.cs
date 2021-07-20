@@ -15,6 +15,11 @@ namespace lukaKry.Calc.Library.Logic.Calculations
 
         public override string ToString()
         {
+            return $"{Arg1} - {Arg2} = {GetResult()}";
+        }
+
+        public string GetSymbol()
+        {
             return "-";
         }
     }

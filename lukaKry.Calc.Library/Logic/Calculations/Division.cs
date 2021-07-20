@@ -35,9 +35,16 @@ namespace lukaKry.Calc.Library.Logic.Calculations
             return Arg1.GetResult() / Arg2.GetResult();
         }
 
-        public override string ToString()
+        public string GetSymbol()
         {
             return "/";
         }
+
+        public override string ToString()
+        {
+            return $"{Arg1} / {Arg2} = {GetResult()}";
+        }
+
+
     }
 }

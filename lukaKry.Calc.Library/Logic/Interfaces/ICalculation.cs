@@ -11,6 +11,7 @@ namespace lukaKry.Calc.Library.Logic
     public interface ICalculation
     {
         decimal GetResult();
-        // string ToString();
+
+        string GetSymbol();
     }
 }

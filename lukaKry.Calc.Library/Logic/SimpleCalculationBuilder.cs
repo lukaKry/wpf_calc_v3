@@ -15,7 +15,6 @@ namespace lukaKry.Calc.Library.Logic
 
         public SimpleCalculationBuilder()
         {
-            //_calculation = new T();
         }
 
         public void AddCalculation(ISettableCalculation calculation)
@@ -39,10 +38,11 @@ namespace lukaKry.Calc.Library.Logic
 
         public ICalculation Build()
         {
-            if (_arg1 is null || _arg2 is null)
+
+            if (_arg1 is null || _arg2 is null || _calculation is null)
             {
                 Logger.Error("Invalid operation: not all arguments have been set before build");
-                throw new InvalidOperationException("Set both arguments before build");
+                throw new InvalidOperationException("Set both arguments and calculation type before build");
             }
 
             _calculation.Arg1 = _arg1;
@@ -56,7 +56,7 @@ namespace lukaKry.Calc.Library.Logic
         {
             ICalculation calc = _calculation as ICalculation;
 
-            return $"{_calculation.Arg1} {calc} {_calculation.Arg2} = {calc.GetResult()}";
+            return $"{_calculation.Arg1} {calc.GetSymbol()} {_calculation.Arg2} = {calc.GetResult()}";
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public interface IRegistry
     {
-        ICalculation GetLastItem();
-        void AddItem(ICalculation calc);
+        ICalculation GetLastCalculation();
+        void AddCalculation(ICalculation calc);
     }
 }

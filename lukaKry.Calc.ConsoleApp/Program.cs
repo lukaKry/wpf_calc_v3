@@ -19,47 +19,19 @@ namespace lukaKry.Calc.ConsoleApp
                 var calculationBuilder = new SimpleCalculationBuilder();
                 var calculator = new Calculator(calculationBuilder);
 
-
-                // first number input
-                var correctInput = false;
-                decimal firstNum;
-                do
-                {
-                    Console.WriteLine("Write first number");
-                    correctInput = decimal.TryParse(Console.ReadLine(), out firstNum);
-                    if (!correctInput) Console.WriteLine("Wrong input.");
-                } while (!correctInput);
-
+                var firstNum = GetUserInput("first number");
                 calculationBuilder.AddNumber(firstNum);
 
-                // choose type of calculation
-                correctInput = false;
-                string calcTypeChoice;
-                do
-                {
-                    Console.WriteLine("Choose type of calculation\n+\tsum\n-\tsubtraction\n*\tmultiplication\n/\tdivision");
-                    calcTypeChoice = Console.ReadLine();
-                    correctInput = CalculationTypeChoiceCheck(calcTypeChoice);
-                    if (!correctInput) Console.WriteLine("Wrong input.");
-                } while (!correctInput);
-
+                string calcTypeChoice = GetCalcTypeFromUser();
                 calculationBuilder.AddCalculation(provider[GetCalculationType(calcTypeChoice)].Create());
 
-                // second number input 
-                correctInput = false;
-                decimal secondNum;
-                do
-                {
-                    Console.WriteLine("Write second number");
-                    correctInput = decimal.TryParse(Console.ReadLine(), out secondNum);
-                    if (!correctInput) Console.WriteLine("Wrong input.");
-                } while (!correctInput);
+                decimal secondNum = GetUserInput("second number");
+                calculationBuilder.AddNumber(secondNum);
 
                 try
                 {
-                    calculationBuilder.AddNumber(secondNum);
                     Console.WriteLine("result is: " + calculator.GetResult());
-                    archiver.SaveCalculation(calculationBuilder.ToString());
+                    archiver.AddCalculation(calculationBuilder.Build());
                 }
                 catch ( Exception e)
                 {
@@ -71,24 +43,58 @@ namespace lukaKry.Calc.ConsoleApp
                 var answer = Console.ReadLine();
                 if (answer == "y") restart = true;
                 
-
-
             } while (restart);
             Console.WriteLine("Bye bye");
 
-            // show calculaions history
             Console.WriteLine("Would You like to see calculations history? (y/n)");
-            var answer2 = Console.ReadLine();
-            if (answer2.ToUpper() == "Y")
+            if (ShouldShowCalculationsHistory(Console.ReadLine()))
             {
-                var history = archiver.GetAllCalculations();
-
-                foreach( var calc in history)
-                {
-                    Console.WriteLine(calc);
-
-                }
+                ShowCalculationsHistory(archiver);
             }
+        }
+
+        private static bool ShouldShowCalculationsHistory(string answer)
+        {
+            return answer.ToUpper() == "Y";
+        }
+
+        private static void ShowCalculationsHistory(SimpleCalculationArchiver archiver)
+        {
+            var history = archiver.GetAllCalculations();
+
+            foreach (var calc in history)
+            {
+                Console.WriteLine(calc);
+            }
+        }
+
+        private static string GetCalcTypeFromUser()
+        {
+            var correctInput = false;
+            string calcTypeChoice;
+            do
+            {
+                Console.WriteLine("Choose type of calculation\n+\tsum\n-\tsubtraction\n*\tmultiplication\n/\tdivision");
+                calcTypeChoice = Console.ReadLine();
+                correctInput = CalculationTypeChoiceCheck(calcTypeChoice);
+                if (!correctInput) Console.WriteLine("Wrong input.");
+            } while (!correctInput);
+
+            return calcTypeChoice;
+        }
+
+        private static decimal GetUserInput(string inputType)
+        {
+            var correctInput = false;
+            decimal number;
+            do
+            {
+                Console.WriteLine($"Write {inputType}");
+                correctInput = decimal.TryParse(Console.ReadLine(), out number);
+                if (!correctInput) Console.WriteLine("Wrong input.");
+            } while (!correctInput);
+
+            return number;
         }
 
         private static CalculationType GetCalculationType(string calcTypeChoice)
@@ -100,7 +106,6 @@ namespace lukaKry.Calc.ConsoleApp
                 case "/": return CalculationType.Division;
                 default: return CalculationType.Sum;
             }
-
         }
 
         private static bool CalculationTypeChoiceCheck(string calcTypeChoice)
