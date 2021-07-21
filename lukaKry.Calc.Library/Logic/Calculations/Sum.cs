@@ -1,4 +1,5 @@
-﻿using System;
+﻿using lukaKry.Calc.Library.Logic.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -8,8 +9,10 @@ using System.Threading.Tasks;
 [assembly: InternalsVisibleTo("lukaKry.Calc.Library.UnitTests")]
 namespace lukaKry.Calc.Library.Logic.Calculations
 {
-    internal class Sum : BaseCalculation, ICalculation
+    internal class Sum : BaseCalculation, ICalculation, IPrioritizableCalculation
     {
+        public int Priority => 1;
+
         public decimal GetResult()
         {
             return Arg1.GetResult() + Arg2.GetResult();

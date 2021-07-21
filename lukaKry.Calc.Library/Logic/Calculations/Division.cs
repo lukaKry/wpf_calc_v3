@@ -1,4 +1,5 @@
-﻿using System;
+﻿using lukaKry.Calc.Library.Logic.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace lukaKry.Calc.Library.Logic.Calculations
 {
-    class Division : ICalculation, ISettableCalculation
+    class Division : ICalculation, ISettableCalculation, IPrioritizableCalculation
     {
         private ICalculation _divisor;
 
@@ -24,6 +25,8 @@ namespace lukaKry.Calc.Library.Logic.Calculations
                 _divisor = value;
             }
         }
+
+        public int Priority => 2;
 
         public Division()
         {

@@ -1,8 +1,7 @@
 {
   "profiles": {
     "lukaKry.Calc.ConsoleApp": {
-      "commandName": "Project",
-      "commandLineArgs": "extended"
+      "commandName": "Project"
     }
   }
 }

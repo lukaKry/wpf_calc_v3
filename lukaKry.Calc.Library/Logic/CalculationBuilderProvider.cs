@@ -10,7 +10,8 @@ namespace lukaKry.Calc.Library.Logic
     public enum BuilderMode
     {
         simple,
-        extended
+        extended,
+        advanced
     }
 
     public class CalculationBuilderProvider
@@ -37,7 +38,8 @@ namespace lukaKry.Calc.Library.Logic
             return new Dictionary<BuilderMode, Func<ICalculationBuilder>>
             {
                 { BuilderMode.simple, () => new SimpleCalculationBuilder() },
-                { BuilderMode.extended, () => new ExtendedCalculationBuilder() }
+                { BuilderMode.extended, () => new ExtendedCalculationBuilder() },
+                { BuilderMode.advanced, () => new AdvancedCalculationBuilder() }
             };
         }
     }
