@@ -7,70 +7,109 @@ namespace lukaKry.Calc.ConsoleApp
 {
     class Program
     {
-        private provider = new CalculationsFactoryProvider();
+        private static CalculationsFactoryProvider _calculationProvider = new();
+        private static SimpleCalculationArchiver _archiver = new();
+        private static CalculationBuilderProvider _builderProvider = new();
+        private static ICalculationBuilder _builder = _builderProvider[BuilderMode.simple]();
+        private static Calculator _calculator;
+
         static void Main(string[] args)
         {
-            // create instances for calculation builder, archiver, providers
-            var provider = new CalculationsFactoryProvider();
-            var archiver = new SimpleCalculationArchiver();
-            var builderProvider = new CalculationBuilderProvider();
-
-            ICalculationBuilder builder = builderProvider[BuilderMode.simple]();
-            
             if (args.Length > 0)
             {
-                if (args[0].ToUpper() == "EXTENDED") builder = builderProvider[BuilderMode.extended]();
+                if (args[0].ToUpper() == "EXTENDED") _builder = _builderProvider[BuilderMode.extended]();
             }
 
-            var calculator = new Calculator(builder);
+            _calculator = new Calculator(_builder);
 
-            if( builder is SimpleCalculationBuilder)
+            if( _builder is SimpleCalculationBuilder)
             {
-                RunSimpleCalculationCycle(builder, );
+                RunSimpleCalculationCycle();
+            }
+
+            if ( _builder is ExtendedCalculationBuilder)
+            {
+                RunExtendedCalculationCycle();
             }
             
-            
-
             Console.WriteLine("Would You like to see calculations history? (y/n)");
             if (ShouldShowCalculationsHistory(Console.ReadLine()))
             {
-                ShowCalculationsHistory(archiver);
+                ShowCalculationsHistory(_archiver);
             }
         }
 
-        private static void RunSimpleCalculationCycle(SimpleCalculationBuilder builder)
+        private static void RunExtendedCalculationCycle()
         {
-            bool restart = false;
             do
             {
                 Console.Clear();
 
-                var firstNum = GetUserInput("first number");
-                builder.AddNumber(firstNum);
+                var num = GetUserInput("number");
+                _builder.AddNumber(num);
 
-                string calcTypeChoice = GetCalcTypeFromUser();
-                builder.AddCalculation(provider[GetCalculationType(calcTypeChoice)].Create());
+                do
+                {
+                    string calcTypeChoice = GetCalcTypeFromUser();
+                    _builder.AddCalculation(_calculationProvider[GetCalculationType(calcTypeChoice)].Create());
 
-                decimal secondNum = GetUserInput("second number");
-                builder.AddNumber(secondNum);
+                    var num2 = GetUserInput("number");
+                    _builder.AddNumber(num2);
+                } while (IsEndOfEquation());
 
                 try
                 {
-                    Console.WriteLine("result is: " + calculator.GetResult());
-                    archiver.AddCalculation(builder.Build());
+                    _archiver.AddCalculation(_builder.Build());
+                    Console.WriteLine(_builder.ToString());
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
 
-                restart = false;
-                Console.WriteLine("Restart? (y/n)");
-                var answer = Console.ReadLine();
-                if (answer == "y") restart = true;
+            } while (ShouldRestart());
+        }
 
-            } while (restart);
+        private static bool IsEndOfEquation()
+        {
+            Console.WriteLine("Press = to solve equation or anything else to continue");
+            bool isEnd = !Equals(Console.ReadKey().Key, ConsoleKey.OemPlus);
+            Console.WriteLine("\b");
+            return isEnd;
+        }
+
+        private static void RunSimpleCalculationCycle()
+        {
+            do
+            {
+                Console.Clear();
+
+                var firstNum = GetUserInput("first number");
+                _builder.AddNumber(firstNum);
+
+                string calcTypeChoice = GetCalcTypeFromUser();
+                _builder.AddCalculation(_calculationProvider[GetCalculationType(calcTypeChoice)].Create());
+
+                decimal secondNum = GetUserInput("second number");
+                _builder.AddNumber(secondNum);
+
+                try
+                {
+                    Console.WriteLine("result is: " + _calculator.GetResult());
+                    _archiver.AddCalculation(_builder.Build());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            } while (ShouldRestart());
             Console.WriteLine("Bye bye");
+        }
+
+        private static bool ShouldRestart()
+        {
+            Console.WriteLine("Restart? (y/n)");
+            return Console.ReadLine().ToUpper() == "Y";
         }
 
         private static void ChooseCalculatorMode(string calculatorMode, ref Calculator calculator)
@@ -89,7 +128,7 @@ namespace lukaKry.Calc.ConsoleApp
 
             foreach (var calc in history)
             {
-                Console.WriteLine(calc + " = " + calc.GetResult());
+                Console.WriteLine(calc + "= " + calc.GetResult());
             }
         }
 

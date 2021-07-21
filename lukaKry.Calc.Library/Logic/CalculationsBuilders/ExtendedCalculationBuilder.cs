@@ -8,10 +8,10 @@ namespace lukaKry.Calc.Library.Logic.CalculationsBuilders
 {
     public class ExtendedCalculationBuilder : ICalculationBuilder
     {
+        private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         private ISettableCalculation _calc;
         private ICalculation _Arg1;
         private ICalculation _Arg2;
-        // moze jakies pole boolean typu isBuilt; na wypadek podwojnego wywolania metody build()
 
         public void AddCalculation(ISettableCalculation calculation)
         {
@@ -21,7 +21,6 @@ namespace lukaKry.Calc.Library.Logic.CalculationsBuilders
             }
             else
             {
-                // same priority
                 _Arg1 = _calc as ICalculation;
                 _calc = calculation;
                 _Arg2 = null;
@@ -43,10 +42,11 @@ namespace lukaKry.Calc.Library.Logic.CalculationsBuilders
         }
 
         public ICalculation Build()
+        
         {
             if (_Arg1 is null || _Arg2 is null || _calc is null)
             {
-                // add logger here
+                _logger.Error("Invalid operation: not all arguments have been set before build");
                 throw new InvalidOperationException("Cannot build uncompleted calculation.");
             }
 
