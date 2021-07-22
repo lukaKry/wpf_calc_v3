@@ -58,8 +58,14 @@ namespace lukaKry.Calc.Library.Logic.CalculationsBuilders
 
         public override string ToString()
         {
+            if (_calc is null)
+            {
+                _logger.Error("Invalid operation: Add Calculation first before calling ToString method");
+                throw new InvalidOperationException("Calculation is null");
+            }
+
             var calc = _calc as ICalculation;
-            return $"{_Arg1.ToShortString()} {calc.GetSymbol()} {_Arg2.ToShortString()} = {calc.GetResult()}";
+            return $"{_Arg1} {calc.GetSymbol()} {_Arg2} = {calc.GetResult()}";
         }
     }
 }

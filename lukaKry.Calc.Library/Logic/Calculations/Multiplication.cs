@@ -25,10 +25,5 @@ namespace lukaKry.Calc.Library.Logic.Calculations
         {
             return "*";
         }
-
-        public string ToShortString()
-        {
-            return $"{Arg1} * {Arg2}";
-        }
     }
 }

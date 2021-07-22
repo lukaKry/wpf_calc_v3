@@ -13,7 +13,5 @@ namespace lukaKry.Calc.Library.Logic
         decimal GetResult();
 
         string GetSymbol();
-
-        string ToShortString();
     }
 }

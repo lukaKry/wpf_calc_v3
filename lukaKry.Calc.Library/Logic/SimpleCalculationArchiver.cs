@@ -9,7 +9,7 @@ namespace lukaKry.Calc.Library.Logic
     public class SimpleCalculationArchiver : IRegistry
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-        private static List<ICalculation> _archive = new();
+        private List<ICalculation> _archive = new();
 
 
         public void AddCalculation(ICalculation calculation)

@@ -95,5 +95,117 @@ namespace lukaKry.Calc.Library.UnitTests.CalculationsBuildersTests
 
             Assert.That(result, Is.EqualTo(output));
         }
+
+
+        // testy ponizej trzeba dopasowac do tej klasy, poniewaz sa skopiowane z ExtendedCalculationBuilderTests class
+        [Test]
+        public void AddNumber_AddTwoNumbers_OutputStringContainsAddedNumberOnCorrectPositions()
+        {
+            var builder = new AdvancedCalculationBuilder();
+
+            builder.AddNumber(1);
+            builder.AddCalculation(new Sum());
+            builder.AddNumber(2);
+
+            var checkString = builder.ToString();
+
+            Assert.That(checkString.StartsWith("1"));
+            Assert.That(checkString.Contains("2"));
+        }
+
+        [Test]
+        public void AddNumber_AddMultipleNumbers_OutputStringContainsFirstAndLastInputNumber()
+        {
+            var builder = new AdvancedCalculationBuilder();
+
+            builder.AddNumber(1);
+            builder.AddCalculation(new Sum());
+            builder.AddNumber(2);
+            builder.AddNumber(3);
+
+            var checkString = builder.ToString();
+
+            Assert.That(checkString.StartsWith("1"));
+            Assert.That(checkString.Contains("3"));
+            Assert.That(!checkString.Contains("2"));
+        }
+
+        [Test]
+        public void Build_CalculationIsNull_ThrowsInvalidOperationException()
+        {
+            var builder = new AdvancedCalculationBuilder();
+
+            builder.AddNumber(1);
+
+            Assert.That(() => builder.Build(), Throws.InvalidOperationException);
+        }
+
+        [Test]
+        public void Build_Argument1IsNull_ThrowsInvalidOperationException()
+        {
+            var builder = new AdvancedCalculationBuilder();
+
+            builder.AddCalculation(new Sum());
+            Assert.That(() => builder.Build(), Throws.InvalidOperationException);
+        }
+
+        [Test]
+        public void Build_Argument2IsNull_ThrowsInvalidOperationException()
+        {
+            var builder = new AdvancedCalculationBuilder();
+
+            builder.AddNumber(1);
+            builder.AddCalculation(new Sum());
+            Assert.That(() => builder.Build(), Throws.InvalidOperationException);
+        }
+
+        [Test]
+        public void Build_FieldsAreNotNull_ReturnsICalculationObject()
+        {
+            var builder = new AdvancedCalculationBuilder();
+
+            builder.AddNumber(1);
+            builder.AddCalculation(new Sum());
+            builder.AddNumber(1);
+
+            var result = builder.Build();
+
+            Assert.That(result, Is.InstanceOf<ICalculation>());
+        }
+
+        [Test]
+        public void Build_FieldsAreNotNull_ReturnsICalculationObjectWithCorrectArgs()
+        {
+            var builder = new AdvancedCalculationBuilder();
+
+            builder.AddNumber(1);
+            builder.AddCalculation(new Sum());
+            builder.AddNumber(1);
+
+            var result = builder.Build();
+
+            Assert.That(result.GetResult(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void ToString_CalculationFieldIsNull_ThrowsInvalidOparationException()
+        {
+            var builder = new AdvancedCalculationBuilder();
+
+            Assert.That(() => builder.ToString(), Throws.InvalidOperationException);
+        }
+
+        [Test]
+        public void ToString_CalculationAndArgsAreSet_ReturnsCorrectlyFormatedString()
+        {
+            var builder = new AdvancedCalculationBuilder();
+            builder.AddNumber(1);
+            builder.AddCalculation(new Sum());
+            builder.AddNumber(2);
+
+            var result = builder.ToString();
+
+            Assert.That(result, Is.EqualTo("1 + 2 = 3"));
+        }
     }
 }

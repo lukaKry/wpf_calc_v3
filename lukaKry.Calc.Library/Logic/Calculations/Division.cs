@@ -46,13 +46,6 @@ namespace lukaKry.Calc.Library.Logic.Calculations
         public override string ToString()
         {
             return $"{Arg1} / {Arg2}";
-
-            // return $"{Arg1} / {Arg2} = {GetResult()}";
-        }
-
-        public string ToShortString()
-        {
-            return $"{Arg1} / {Arg2}";
         }
     }
 }

@@ -25,6 +25,49 @@ namespace lukaKry.Calc.Library.UnitTests
         */
 
         [Test]
+        public void SetGetArg1_SetNumberDifferentThanZero_SetsAndGetsSameValue()
+        {
+            var divisionCalc = new Division();
+            var num = new Number(1);
+
+            divisionCalc.Arg1 = num;
+            var result = divisionCalc.Arg1;
+
+            Assert.That(result, Is.EqualTo(num));
+        }
+
+        [Test]
+        public void SetArg2_SetNumberWithArgZero_ThrowsDivideByZeroException()
+        {
+            var divisionCalc = new Division();
+            var num = new Number(0);
+
+            Assert.That( () =>  divisionCalc.Arg2 = num , Throws.Exception.TypeOf<DivideByZeroException>());
+        }
+
+        [Test]
+        public void SetGetArg2_SetNumberDifferentThanZero_SetsAndGetsSameValue()
+        {
+            var divisionCalc = new Division();
+            var num = new Number(1);
+
+            divisionCalc.Arg2 = num;
+            var result = divisionCalc.Arg2;
+
+            Assert.AreEqual(result, num);
+        }
+
+        [Test]
+        public void GetPriority_WhenCalled_ReturnsTwo()
+        {
+            var divisionCalc = new Division();
+
+            var result = divisionCalc.Priority;
+
+            Assert.AreEqual(result, 2);
+        }
+
+        [Test]
         [TestCase(2, 2, 1)]
         public void GetResult_WithBothArgsSet_CorrectResult(decimal arg1, decimal arg2, decimal outcome)
         {
@@ -39,19 +82,11 @@ namespace lukaKry.Calc.Library.UnitTests
             Assert.That(result, Is.EqualTo(outcome));
         }
 
-
         [Test]
         [TestCase(2, 2, 2, 0.5)]
         [TestCase(-2, -2, -2, -0.5)]
         public void GetResult_WithAllArgsSet_CorrectResult(decimal arg1, decimal arg2, decimal arg3, decimal outcome)
         {
-            // uwaga przy tworzeniu nowych kalkulacji
-            // stworzenie np. zagnieżdżonych obiektów typu Sum i przypisywanie liczb ( typ Number ) do pierwszego argumentu 
-            // ( Arg1 ) spowoduje rozwiązywanie równania od prawej do lewej 
-            // natomiast przypisanie pierwszego argumentu na pozycji drugiej ( Arg2 ) będzie skutkowało rozwiązywaniem od lewej do prawej
-
-
-
             Division division = new()
             {
                 Arg2 = new Number(arg1),
@@ -65,9 +100,7 @@ namespace lukaKry.Calc.Library.UnitTests
             var result = division.GetResult();
 
             Assert.That(result, Is.EqualTo(outcome));
-
         }
-
 
         [Test]
         [TestCase(2, 0)]
@@ -84,7 +117,6 @@ namespace lukaKry.Calc.Library.UnitTests
             },
             Throws.Exception.TypeOf<DivideByZeroException>() );
         }
-
 
         [Test]
         public void GetResult_DivisorIsCalculationWhichResultsInZero_ThrowException()
@@ -107,13 +139,36 @@ namespace lukaKry.Calc.Library.UnitTests
             Throws.Exception.TypeOf<DivideByZeroException>());
         }
 
-
         [Test]
         public void GetResult_NoArgsSet_GetResultsFromDefaultArgsValues()
         {
             Division division= new();
             var result = division.GetResult();
             Assert.That(result, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GetSymbol_WhenCalled_ReturnForeslashString()
+        {
+            var divisionCalc = new Division();
+
+            var result = divisionCalc.GetSymbol();
+
+            Assert.AreEqual(result, "/");
+        }
+
+        [Test]
+        public void ToString_WhenCalled_ReturnsCorrectlyFormatedString()
+        {
+            var divisionCalc = new Division()
+            {
+                Arg1 = new Number(1),
+                Arg2 = new Number(2)
+            };
+
+            var result = divisionCalc.ToString();
+
+            Assert.AreEqual(result, "1 / 2");
         }
     }
 }

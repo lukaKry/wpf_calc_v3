@@ -10,7 +10,7 @@ namespace lukaKry.Calc.Library.Logic
     {
         private readonly IRegistry _archiver;
 
-        public CalculationArchiverProvider(IRegistry archiver)
+        public CalculationArchiverProvider(IRegistry archiver = null)
         {
             _archiver = archiver ?? GetDefaultArchiver();
         }

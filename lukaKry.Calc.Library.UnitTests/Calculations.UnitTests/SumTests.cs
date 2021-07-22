@@ -11,7 +11,6 @@ namespace lukaKry.Calc.Library.UnitTests
         {
         }
 
-
         /* Test cases:
         
             2 + 2 = 4
@@ -20,7 +19,6 @@ namespace lukaKry.Calc.Library.UnitTests
             no args set = 0
 
         */
-
 
         [Test]
         [TestCase(2, 2, 4)]
@@ -36,7 +34,6 @@ namespace lukaKry.Calc.Library.UnitTests
 
             Assert.That(result, Is.EqualTo(outcome));
         }
-
 
         [Test]
         [TestCase(2, 2, 2, 6)]
@@ -55,9 +52,7 @@ namespace lukaKry.Calc.Library.UnitTests
             var result = sum.GetResult();
 
             Assert.That(result, Is.EqualTo(outcome));
-
         }
-
 
         [Test]
         public void GetResult_NoArgsSet_GetResultsFromDefaultArgsValues()
@@ -65,9 +60,40 @@ namespace lukaKry.Calc.Library.UnitTests
             Sum sum = new();
             var result = sum.GetResult();
             Assert.That(result, Is.EqualTo(0));
-
-            //Assert.That(() => sum.GetResult(), Throws.Exception.TypeOf<NullReferenceException>());
         }
 
+        [Test]
+        public void GetPriority_WhenCalled_ReturnsTwo()
+        {
+            var sumCalc = new Sum();
+
+            var result = sumCalc.Priority;
+
+            Assert.AreEqual(result, 1);
+        }
+
+        [Test]
+        public void GetSymbol_WhenCalled_ReturnForeslashString()
+        {
+            var sumCalc = new Sum();
+
+            var result = sumCalc.GetSymbol();
+
+            Assert.AreEqual(result, "+");
+        }
+
+        [Test]
+        public void ToString_WhenCalled_ReturnsCorrectlyFormatedString()
+        {
+            var sumCalc = new Sum()
+            {
+                Arg1 = new Number(1),
+                Arg2 = new Number(2)
+            };
+
+            var result = sumCalc.ToString();
+
+            Assert.AreEqual(result, "1 + 2");
+        }
     }
 }

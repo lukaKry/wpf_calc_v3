@@ -13,10 +13,6 @@ namespace lukaKry.Calc.Library.Logic
         private Number _arg1;
         private Number _arg2;
 
-        public SimpleCalculationBuilder()
-        {
-        }
-
         public void AddCalculation(ISettableCalculation calculation)
         {
             _calculation = calculation;
@@ -54,6 +50,11 @@ namespace lukaKry.Calc.Library.Logic
 
         public override string ToString()
         {
+            if(_calculation is null)
+            {
+                Logger.Error("Invalid operation: Add Calculation first before calling ToString method");
+                throw new InvalidOperationException("Calculation is null");
+            }
             ICalculation calc = _calculation as ICalculation;
 
             return $"{_calculation.Arg1} {calc.GetSymbol()} {_calculation.Arg2} = {calc.GetResult()}";
