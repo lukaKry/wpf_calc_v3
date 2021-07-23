@@ -32,5 +32,11 @@ namespace lukaKry.Calc.Library.Logic
         {
             return _archive;
         }
+
+        public IEnumerable<string> GetAll()
+        {
+            // hmm to też nie wygląda dobrze...
+            throw new NotImplementedException();
+        }
     }
 }

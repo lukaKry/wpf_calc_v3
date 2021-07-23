@@ -67,5 +67,12 @@ namespace lukaKry.Calc.Library.Logic.CalculationsBuilders
             var calc = _calc as ICalculation;
             return $"{_Arg1} {calc.GetSymbol()} {_Arg2} = {calc.GetResult()}";
         }
+
+        public void Reset()
+        {
+            _calc = null;
+            _Arg1 = null;
+            _Arg2 = null;
+        }
     }
 }
