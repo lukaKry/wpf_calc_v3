@@ -97,7 +97,6 @@ namespace lukaKry.Calc.Library.UnitTests.CalculationsBuildersTests
         }
 
 
-        // testy ponizej trzeba dopasowac do tej klasy, poniewaz sa skopiowane z ExtendedCalculationBuilderTests class
         [Test]
         public void AddNumber_AddTwoNumbers_OutputStringContainsAddedNumberOnCorrectPositions()
         {
@@ -206,6 +205,13 @@ namespace lukaKry.Calc.Library.UnitTests.CalculationsBuildersTests
             var result = builder.ToString();
 
             Assert.That(result, Is.EqualTo("1 + 2 = 3"));
+        }
+
+
+        [Test]
+        public void DifferentOrderOfMethodCalls_NoExceptionIsThrown()
+        {
+
         }
     }
 }

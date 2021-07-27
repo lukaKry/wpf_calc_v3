@@ -37,6 +37,8 @@ namespace lukaKry.Calc.API
             services.AddSingleton<ICalculationBuilder, AdvancedCalculationBuilder>();
             services.AddScoped<IRegistry, DatabaseArchiver>();
 
+            services.AddCors(options => options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -47,6 +49,8 @@ namespace lukaKry.Calc.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lukaKry.Calc.Library.UnitTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lukaKry.Calc.WpfApp", "lukaKry.Calc.WpfApp\lukaKry.Calc.WpfApp.csproj", "{99E256D3-9589-4048-8B6C-0C3A6804E710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lukaKry.Calc.API", "lukaKry.Cal.API\lukaKry.Calc.API.csproj", "{609ED491-F5A0-4694-BBD8-65E0890809C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lukaKry.Calc.API", "lukaKry.Cal.API\lukaKry.Calc.API.csproj", "{609ED491-F5A0-4694-BBD8-65E0890809C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lukaKry.Calc.API.UnitTests", "lukaKry.Calc.API.UnitTests\lukaKry.Calc.API.UnitTests.csproj", "{B05088D1-19C4-483E-8E4B-B7148A7AF4E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{609ED491-F5A0-4694-BBD8-65E0890809C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{609ED491-F5A0-4694-BBD8-65E0890809C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{609ED491-F5A0-4694-BBD8-65E0890809C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B05088D1-19C4-483E-8E4B-B7148A7AF4E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B05088D1-19C4-483E-8E4B-B7148A7AF4E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B05088D1-19C4-483E-8E4B-B7148A7AF4E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B05088D1-19C4-483E-8E4B-B7148A7AF4E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

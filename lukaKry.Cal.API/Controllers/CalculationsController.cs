@@ -28,9 +28,17 @@ namespace lukaKry.Calc.API.Controllers
         [HttpPost]
         [Route("addnum")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
-        public IActionResult AddNumber([FromBody] decimal number)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddNumber([FromBody] string number)
         {
-            _builder.AddNumber(number);
+            decimal parsedNumber;
+            if(decimal.TryParse(number, out parsedNumber)) 
+            {
+                return BadRequest("Not a correct number format");
+            }
+
+            _builder.AddNumber(parsedNumber);
+
             return Accepted();
         }
 
@@ -85,11 +93,13 @@ namespace lukaKry.Calc.API.Controllers
 
                 _archiver.AddCalculation(builtCalculation);
 
+                _builder.Reset();
+
                 return Ok(builtCalculation.GetResult());
             }
             catch (InvalidOperationException)
             {
-                return StatusCode(405);
+                return StatusCode(405, "nothing yet to calculate");
             }
 
         }
