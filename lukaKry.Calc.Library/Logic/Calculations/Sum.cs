@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 [assembly: InternalsVisibleTo("lukaKry.Calc.Library.UnitTests")]
 namespace lukaKry.Calc.Library.Logic.Calculations
 {
-    internal class Sum : BaseCalculation, ICalculation, IPrioritizableCalculation
+    internal class Sum : BaseCalculation, ISettableCalculation
     {
         public int Priority => 1;
 
-        public decimal GetResult()
+        public new decimal GetResult()
         {
             return Arg1.GetResult() + Arg2.GetResult();
         }
@@ -25,7 +25,7 @@ namespace lukaKry.Calc.Library.Logic.Calculations
             // return $"{Arg1} + {Arg2} = {GetResult()}";
         }
 
-        public string GetSymbol()
+        public new string GetSymbol()
         {
             return "+";
         }

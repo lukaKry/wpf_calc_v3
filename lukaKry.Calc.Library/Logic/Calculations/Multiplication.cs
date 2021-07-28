@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace lukaKry.Calc.Library.Logic.Calculations
 {
-    class Multiplication : BaseCalculation, ICalculation, IPrioritizableCalculation
+    class Multiplication : BaseCalculation, ISettableCalculation
     {
         public int Priority => 2;
 

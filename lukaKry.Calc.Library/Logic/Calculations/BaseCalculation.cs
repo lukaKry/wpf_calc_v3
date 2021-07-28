@@ -16,5 +16,15 @@ namespace lukaKry.Calc.Library.Logic.Calculations
             Arg1 = new Number(0);
             Arg2 = new Number(0);
         }
+
+        public decimal GetResult()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetSymbol()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

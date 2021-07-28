@@ -8,8 +8,9 @@ using lukaKry.Calc.Library.Logic.Calculations;
 using lukaKry.Calc.Library.Logic.CalculationsBuilders;
 using NUnit.Framework;
 
-namespace lukaKry.Calc.Library.UnitTests.CalculationsBuildersTests
+namespace lukaKry.Calc.Library.UnitTests.CalculationsBuilders.UnitTests
 {
+    [Ignore("obsolete")]
     public class AdvancedCalculationBuilderTests
     {
         [Test]
