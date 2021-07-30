@@ -11,7 +11,7 @@ namespace lukaKry.Calc.Library.Logic.Calculations
     {
         public int Priority => 2;
 
-        public decimal GetResult()
+        public override decimal GetResult()
         {
             return Arg1.GetResult() * Arg2.GetResult();
         }
@@ -21,7 +21,7 @@ namespace lukaKry.Calc.Library.Logic.Calculations
             return $"{Arg1} * {Arg2}";
         }
 
-        public string GetSymbol()
+        public override string GetSymbol()
         {
             return "*";
         }

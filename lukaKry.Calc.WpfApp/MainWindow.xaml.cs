@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.ComponentModel;
 using lukaKry.Calc.Library.Logic;
+using lukaKry.Calc.Library.Logic.CalculationsBuilders;
 
 namespace lukaKry.Calc.Library
 {
@@ -26,7 +27,7 @@ namespace lukaKry.Calc.Library
                 PropertyChanged?.Invoke(this, new(nameof(MainDisplay)));
             }
         }
-        public ICalculationBuilder Builder { get; set; } = new SimpleCalculationBuilder();
+        public ICalculationBuilder Builder { get; set; } = new EquationCalculationBuilder();
         public CalculationsFactoryProvider Provider { get; set; } = new();
 
         public MainWindow()
@@ -64,7 +65,7 @@ namespace lukaKry.Calc.Library
         {
             Button button = (Button)sender;
             MainDisplay += button.Uid;
-            Builder.AddCalculation(Provider[GetCalculationType(button.Uid)].Create());
+            Builder.AddCalculation(GetCalculationType(button.Uid));
         }
 
         private void On_EqualSignButton_Clicked(object sender, RoutedEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using lukaKry.Calc.Library.Logic;
 using lukaKry.Calc.Library.Logic.Calculations;
+using lukaKry.Calc.Library.Logic.CalculationsBuilders;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -10,7 +11,7 @@ namespace lukaKry.Calc.Library.UnitTests
     {
         private CalculationsFactoryProvider _provider = new();
         private Calculator _calc;
-        private SimpleCalculationBuilder _builder = new();
+        private EquationCalculationBuilder _builder = new();
 
         [SetUp]
         public void SetUp()
@@ -45,12 +46,5 @@ namespace lukaKry.Calc.Library.UnitTests
             Assert.That(result, Is.TypeOf<decimal>());
         }
 
-        [Test]
-        public void GetResult_CurrentCalculationIsNull_ThrowException()
-        {
-            _calc.ResetCurrentCalculation();
-
-            Assert.That(() => _calc.GetResult(), Throws.InvalidOperationException);
-        }
     }
 }

@@ -13,9 +13,9 @@ namespace lukaKry.Calc.Library.UnitTests.Providers.UnitTests
     public class CalculationBuilderProviderTests
     {
         [Test]
-        [TestCase(BuilderMode.simple, typeof(SimpleCalculationBuilder))]
-        [TestCase(BuilderMode.extended, typeof(ExtendedCalculationBuilder))]
-        [TestCase(BuilderMode.advanced, typeof(AdvancedCalculationBuilder))]
+        [TestCase(BuilderMode.simple, typeof(EquationCalculationBuilder))]
+        [TestCase(BuilderMode.extended, typeof(EquationCalculationBuilder))]
+        [TestCase(BuilderMode.advanced, typeof(EquationCalculationBuilder))]
 
         public void BuilderProviderIndexer_WhenCalled_ReturnsDesiredBuilder(BuilderMode mode, Type type)
         {

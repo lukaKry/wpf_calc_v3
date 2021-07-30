@@ -50,8 +50,8 @@ namespace lukaKry.Calc.API.Controllers
         {
             if (!IsValidCalculationSymbol(symbol)) return BadRequest("Not a correct calculation symbol");
 
-            var type = GetCalculationType(symbol);
-            _builder.AddCalculation(_provider[type].Create());
+            var calcType = GetCalculationType(symbol);
+            _builder.AddCalculation(calcType);
 
             return Accepted();
         }

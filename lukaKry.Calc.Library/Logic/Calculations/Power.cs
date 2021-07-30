@@ -10,7 +10,7 @@ namespace lukaKry.Calc.Library.Logic.Calculations
     {
         public int Priority => 3;
 
-        public decimal GetResult()
+        public override decimal GetResult()
         {
             return (decimal)Math.Pow((double)Arg1.GetResult(), (double)Arg2.GetResult());
         }
@@ -20,7 +20,7 @@ namespace lukaKry.Calc.Library.Logic.Calculations
             return $"{Arg1}^{Arg2}";
         }
 
-        public string GetSymbol()
+        public override string GetSymbol()
         {
             return "^";
         }

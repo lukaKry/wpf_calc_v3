@@ -13,7 +13,7 @@ namespace lukaKry.Calc.Library.Logic.Calculations
     {
         public int Priority => 1;
 
-        public new decimal GetResult()
+        public override decimal GetResult()
         {
             return Arg1.GetResult() + Arg2.GetResult();
         }
@@ -21,11 +21,9 @@ namespace lukaKry.Calc.Library.Logic.Calculations
         public override string ToString()
         {
             return $"{Arg1} + {Arg2}";
-
-            // return $"{Arg1} + {Arg2} = {GetResult()}";
         }
 
-        public new string GetSymbol()
+        public override string GetSymbol()
         {
             return "+";
         }

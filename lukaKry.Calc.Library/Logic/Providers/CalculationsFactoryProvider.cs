@@ -13,7 +13,8 @@ namespace lukaKry.Calc.Library.Logic
         Sum,
         Subtraction,
         Multiplication,
-        Division
+        Division,
+        Power
     }
 
     public class CalculationsFactoryProvider
@@ -42,7 +43,8 @@ namespace lukaKry.Calc.Library.Logic
                 { CalculationType.Sum, () => new SumCalculationFactory() },
                 { CalculationType.Subtraction, () => new SubtractionCalculationFactory() },
                 { CalculationType.Multiplication, () => new MultiplicationCalculationFactory() },
-                { CalculationType.Division, () => new DivisionCalculationFactory() }
+                { CalculationType.Division, () => new DivisionCalculationFactory() },
+                { CalculationType.Power, () => new PowerCalculationFactory() }
             };
         }
     }

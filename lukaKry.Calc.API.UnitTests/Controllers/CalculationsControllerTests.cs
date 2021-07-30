@@ -25,7 +25,7 @@ namespace lukaKry.Calc.API.UnitTests.Controllers
         public void Setup()
         {
             _provider = new CalculationsFactoryProvider(); 
-            _builder = new AdvancedCalculationBuilder();
+            _builder = new EquationCalculationBuilder();
 
             string[] calculationArchive = new string[] { "1 + 2 = 3", "3 - 2 = 1" };
             var mockArchiver = new Mock<IRegistry>();

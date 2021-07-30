@@ -11,7 +11,8 @@ namespace lukaKry.Calc.Library.Logic
     {
         simple,
         extended,
-        advanced
+        advanced,
+        another
     }
 
     public class CalculationBuilderProvider
@@ -37,9 +38,10 @@ namespace lukaKry.Calc.Library.Logic
         {
             return new Dictionary<BuilderMode, Func<ICalculationBuilder>>
             {
-                { BuilderMode.simple, () => new SimpleCalculationBuilder() },
-                { BuilderMode.extended, () => new ExtendedCalculationBuilder() },
-                { BuilderMode.advanced, () => new AdvancedCalculationBuilder() }
+                { BuilderMode.simple, () => new EquationCalculationBuilder() },
+                { BuilderMode.extended, () => new EquationCalculationBuilder() },
+                { BuilderMode.advanced, () => new EquationCalculationBuilder() },
+                { BuilderMode.another, () => new EquationCalculationBuilder() }
             };
         }
     }

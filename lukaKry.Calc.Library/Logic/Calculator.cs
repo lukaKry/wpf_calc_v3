@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using lukaKry.Calc.Library.Logic.CalculationsBuilders;
 
 namespace lukaKry.Calc.Library.Logic
 {
@@ -12,7 +13,7 @@ namespace lukaKry.Calc.Library.Logic
 
         public Calculator(ICalculationBuilder builder = null)
         {
-            _builder = builder ?? new SimpleCalculationBuilder();
+            _builder = builder ?? new EquationCalculationBuilder();
         }
 
         public decimal GetResult()

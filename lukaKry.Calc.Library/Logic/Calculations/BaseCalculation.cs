@@ -11,20 +11,20 @@ namespace lukaKry.Calc.Library.Logic.Calculations
         public ICalculation Arg1 { get; set; }
         public ICalculation Arg2 { get; set; }
 
-        public BaseCalculation()
+        public BaseCalculation(decimal arg1 = 0, decimal arg2 = 0)
         {
-            Arg1 = new Number(0);
-            Arg2 = new Number(0);
+            Arg1 = new Number(arg1);
+            Arg2 = new Number(arg2);
         }
 
-        public decimal GetResult()
+        public virtual decimal GetResult()
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
-        public string GetSymbol()
+        public virtual string GetSymbol()
         {
-            throw new NotImplementedException();
+            return string.Empty;
         }
     }
 }

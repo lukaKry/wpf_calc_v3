@@ -2,6 +2,7 @@
 using lukaKry.Calc.Library.Logic.CalculationsBuilders;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace lukaKry.Calc.ConsoleApp
 {
@@ -10,41 +11,12 @@ namespace lukaKry.Calc.ConsoleApp
         private static CalculationsFactoryProvider _calculationProvider = new();
         private static SimpleCalculationArchiver _archiver = new();
         private static CalculationBuilderProvider _builderProvider = new();
-        private static ICalculationBuilder _builder = _builderProvider[BuilderMode.simple]();
-        private static Calculator _calculator;
+        private static ICalculationBuilder _builder;
 
         static void Main(string[] args)
         {
-            if (args.Length > 0)
-            {
-                switch (args[0].ToUpper()) 
-                {
-                    case "EXTENDED":
-                        {
-                            _builder = _builderProvider[BuilderMode.extended]();
-                            _calculator = new Calculator(_builder);
-                            RunCalculationCycle(BuilderMode.extended);
-                            break;
-                        }
-                    case "ADVANCED":
-                        {
-                            _builder = _builderProvider[BuilderMode.advanced]();
-                            _calculator = new Calculator(_builder);
-                            RunCalculationCycle(BuilderMode.advanced);
-                            break;
-                        }
-                    default:
-                        {
-                            _calculator = new Calculator(_builder);
-                            RunCalculationCycle(BuilderMode.simple);
-                            break;
-                        }
-                }
-            }
-            else
-            {
-                RunCalculationCycle(BuilderMode.simple);
-            }
+            
+            RunCalculationCycle(BuilderMode.another);
 
             Console.WriteLine("Would You like to see calculations history? (y/n)");
             if (ShouldShowCalculationsHistory(Console.ReadLine()))
@@ -53,7 +25,7 @@ namespace lukaKry.Calc.ConsoleApp
             }
         }
 
-        private static void RunCalculationCycle(BuilderMode builderMode)
+        private async static Task RunCalculationCycle(BuilderMode builderMode)
         {
             do
             {
@@ -66,7 +38,7 @@ namespace lukaKry.Calc.ConsoleApp
                 do
                 {
                     string calcTypeChoice = GetCalcTypeFromUser();
-                    _builder.AddCalculation(_calculationProvider[GetCalculationType(calcTypeChoice)].Create());
+                    _builder.AddCalculation(GetCalculationType(calcTypeChoice));
 
                     var num2 = GetUserInput("number");
                     _builder.AddNumber(num2);
@@ -74,21 +46,20 @@ namespace lukaKry.Calc.ConsoleApp
 
                 try
                 {
-                    _archiver.AddCalculation(_builder.Build());
-                    Console.WriteLine(_builder.ToString());
+                    await _archiver.AddCalculation(_builder.Build());
+                    Console.WriteLine( await _archiver.GetLastCalculation());
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e);
                 }
             } while (ShouldRestart());
         }
 
         private static bool IsEndOfEquation(BuilderMode builderMode)
         {
-            if (builderMode == BuilderMode.simple) return false;
-
             Console.WriteLine("Press = to solve equation or anything else to continue");
+            // OemPlus is a key with both plus and equal sign
             bool isEnd = !Equals(Console.ReadKey().Key, ConsoleKey.OemPlus);
             Console.WriteLine("\b");
             return isEnd;
@@ -105,13 +76,13 @@ namespace lukaKry.Calc.ConsoleApp
             return answer.ToUpper() == "Y";
         }
 
-        private static void ShowCalculationsHistory(SimpleCalculationArchiver archiver)
+        private async static Task ShowCalculationsHistory(SimpleCalculationArchiver archiver)
         {
-            var history = archiver.GetAllCalculations();
+            var history = await archiver.GetAll();
 
             foreach (var calc in history)
             {
-                Console.WriteLine(calc + " = " + calc.GetResult());
+                Console.WriteLine(calc);
             }
         }
 
@@ -121,7 +92,7 @@ namespace lukaKry.Calc.ConsoleApp
             string calcTypeChoice;
             do
             {
-                Console.WriteLine("Choose type of calculation\n+\tsum\n-\tsubtraction\n*\tmultiplication\n/\tdivision");
+                Console.WriteLine("Choose type of calculation\n+\tsum\n-\tsubtraction\n*\tmultiplication\n/\tdivision\n^\tpower");
                 calcTypeChoice = Console.ReadLine();
                 correctInput = CalculationTypeChoiceCheck(calcTypeChoice);
                 if (!correctInput) Console.WriteLine("Wrong input.");
@@ -151,13 +122,14 @@ namespace lukaKry.Calc.ConsoleApp
                 case "-": return CalculationType.Subtraction;
                 case "*": return CalculationType.Multiplication;
                 case "/": return CalculationType.Division;
+                case "^": return CalculationType.Power;
                 default: return CalculationType.Sum;
             }
         }
 
         private static bool CalculationTypeChoiceCheck(string calcTypeChoice)
         {
-            string[] validKeys = { "+", "-", "*", "/" };
+            string[] validKeys = { "+", "-", "*", "/", "^" };
             return Array.IndexOf(validKeys, calcTypeChoice) >= 0;
         }
     }
