@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using lukaKry.Calc.Library.Logic.Calculations;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace lukaKry.Calc.Library.Logic
 {
     public interface IRegistry
     {
-        Task<ICalculation> GetLastCalculation();
-        Task AddCalculation(ICalculation equation);
+        Task<Equation> GetLastCalculation();
+        Task AddCalculation(Equation equation);
         Task<IEnumerable<ICalculation>> GetAll();
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace lukaKry.Calc.Library.Logic.Calculations
@@ -12,10 +13,19 @@ namespace lukaKry.Calc.Library.Logic.Calculations
         private readonly List<decimal> _nums;
         private decimal _result;
 
+        [JsonPropertyName("calcs")]
         public IEnumerable<ISettableCalculation> Calcs => _calcs;
+
+        [JsonPropertyName("nums")]
         public IEnumerable<decimal> Nums => _nums;
         public decimal GetResult() => _result;
         public string GetSymbol() => "=";
+
+        /*
+        [JsonConstructor]
+        public Equation(List<ISettableCalculation> Calcs, List<decimal> Nums, decimal res) =>
+             (_calcs, _nums, _result) = (Calcs, Nums, res);
+        */
 
         public Equation(List<ISettableCalculation> calcs, List<decimal> nums)
         {
@@ -25,7 +35,7 @@ namespace lukaKry.Calc.Library.Logic.Calculations
             _calcs = calcs;
             _nums = nums;
 
-            AssignResult();
+           if(_result == 0) AssignResult();
         }
 
         private static bool CheckIfInputDataIsCorrect(List<ISettableCalculation> calcs, List<decimal> nums)
@@ -53,7 +63,7 @@ namespace lukaKry.Calc.Library.Logic.Calculations
 
             if (_calcs.Count() < _nums.Count()) sb.Append(_nums[^1]);
 
-            sb.Remove(0, 4);
+            sb.Remove(0, 6);
 
             return $"{sb} = {_result}";
         }

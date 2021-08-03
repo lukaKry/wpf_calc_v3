@@ -12,7 +12,7 @@ namespace lukaKry.Calc.API.DataAccess
     {
         public int Id { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(5000)]
         public string Calculation { get; set; }
     }
 } 

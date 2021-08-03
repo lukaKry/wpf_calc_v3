@@ -1,4 +1,5 @@
-﻿using System;
+﻿using lukaKry.Calc.Library.Logic.Calculations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace lukaKry.Calc.Library.Logic
         private List<ICalculation> _archive = new();
 
 
-        public async Task AddCalculation(ICalculation calculation)
+        public async Task AddCalculation(Equation calculation)
         {
             Logger.Info("Calculation archived successfully.");
             _archive.Add(calculation);
@@ -31,6 +32,11 @@ namespace lukaKry.Calc.Library.Logic
         public async Task<IEnumerable<ICalculation>> GetAll()
         {
             return _archive;
+        }
+
+        Task<Equation> IRegistry.GetLastCalculation()
+        {
+            throw new NotImplementedException();
         }
     }
 }

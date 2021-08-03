@@ -1,4 +1,5 @@
 ﻿using lukaKry.Calc.Library.Logic;
+using lukaKry.Calc.Library.Logic.Calculations;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace lukaKry.Calc.Library.UnitTests
         {
             var archiver = new SimpleCalculationArchiver();
 
-            await archiver.AddCalculation(new Number(1));
+            await archiver.AddCalculation(new Equation(new List<ISettableCalculation>(), new List<decimal>()));
 
             var result = await archiver.GetLastCalculation();
 

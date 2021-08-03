@@ -1,5 +1,7 @@
 ﻿using lukaKry.Calc.API.DataAccess;
 using lukaKry.Calc.Library.Logic;
+using lukaKry.Calc.Library.Logic.Calculations;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,26 +15,38 @@ namespace lukaKry.Calc.API.Services
         public DatabaseArchiver(CalculationDataContext context) => _context = context;
 
 
-        public void AddCalculation(ICalculation calc)
+        public async Task AddCalculation(Equation calc)
         {
-            // jeśli chciałbym zmienić to na metody asynchroniczne, to mój interfejs staje się nieopdowiedni... co można z tym zrobić? 
-            _context.CalculationRecords.Add(new CalculationRecord()
+            string jsonCalc = JsonConvert.SerializeObject(calc, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+
+            await _context.CalculationRecords.AddAsync(new CalculationRecord()
             {
-                Calculation = $"{calc} = {calc.GetResult()}"
+                Calculation = jsonCalc
             });
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<string> GetAll()
+        
+        public async Task<IEnumerable<ICalculation>> GetAll()
         {
-            return _context.CalculationRecords.Select(p => p.Calculation);
-        }
-
-        public ICalculation GetLastCalculation()
-        {
-            // no i robi sie problematycznie - jak zapisac do bazy danych obiekt typu ICalculation tak, by potem mozna go bylo spokojnie wyciagnac
             throw new NotImplementedException();
+           // _context.CalculationRecords.Select(p => p.Calculation);
+
+        }
+
+        public async Task<Equation> GetLastCalculation()
+        {
+            string serializedCalc = _context.CalculationRecords.OrderBy(p => p.Id).Last().Calculation;
+
+            var equation = JsonConvert.DeserializeObject<Equation>(serializedCalc, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+
+            return equation;
+        }
+
+        public string GetTest()
+        {
+            return _context.CalculationRecords.Last().Calculation;
         }
     }
 }

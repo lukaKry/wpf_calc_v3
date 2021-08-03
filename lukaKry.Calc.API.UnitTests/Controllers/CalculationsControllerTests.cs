@@ -20,7 +20,7 @@ namespace lukaKry.Calc.API.UnitTests.Controllers
         private IRegistry _archiver;
         private CalculationsFactoryProvider _provider;
 
-
+        /*
         [SetUp]
         public void Setup()
         {
@@ -34,6 +34,7 @@ namespace lukaKry.Calc.API.UnitTests.Controllers
 
             _controller = new CalculationsController(_builder, _archiver, _provider);
         }
+        */
 
         [Test]
         public void AddNumber_IncorrectStringNumberFormat_ReturnBadrequestAnswer()

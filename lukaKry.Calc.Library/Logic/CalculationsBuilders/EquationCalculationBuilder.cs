@@ -40,7 +40,7 @@ namespace lukaKry.Calc.Library.Logic.CalculationsBuilders
             }
         }
 
-        public ICalculation Build()
+        public Equation Build()
         {
             // if there is less numbers than needed duplicate last number 
             if (_numbers.Count == _calculations.Count) _numbers.Add(_numbers[^1]);

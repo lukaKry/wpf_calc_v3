@@ -1,4 +1,6 @@
-﻿namespace lukaKry.Calc.Library.Logic
+﻿using System.Text.Json.Serialization;
+
+namespace lukaKry.Calc.Library.Logic
 {
     public interface ISettableCalculation : ICalculation
     {

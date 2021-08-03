@@ -1,6 +1,7 @@
 ﻿using lukaKry.Calc.API.DataAccess;
 using lukaKry.Calc.API.Services;
 using lukaKry.Calc.Library.Logic;
+using lukaKry.Calc.Library.Logic.Calculations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,18 +28,16 @@ namespace lukaKry.Calc.API.Controllers
 
         [HttpPost]
         [Route("addnum")]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult AddNumber([FromBody] string number)
+        [ProducesResponseType(StatusCodes.Status202Accepted)]       // korzystanie z atrybutów jest szczególnie przydatne przy automatycznym generowaniu openAPI swagger specification 
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]     // tutaj widać, że mam przewidziane dwa typy zwrotu, więc IActionResult jest dobrym wyborem
+        public IActionResult AddNumber([FromBody] string number)    // IActionResult jest odpowiednim typem w momencie, gdy nasza metoda moze zwrócić różne typy odpowiedzi
         {
-            decimal parsedNumber;
-            if(decimal.TryParse(number, out parsedNumber)) 
+            if(!decimal.TryParse(number, out decimal parsedNumber)) 
             {
                 return BadRequest("Not a correct number format");
             }
 
             _builder.AddNumber(parsedNumber);
-
             return Accepted();
         }
 
@@ -82,16 +81,46 @@ namespace lukaKry.Calc.API.Controllers
         }
 
         [HttpGet]
+        [Route("getlast")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetLastCalculation()
+        {
+            // zdecydowanie lepiej jakby ta metoda zwracala tylko to, co potrzebne jest do wyswietlenia
+            // czyli coś typu { "equation" : "1+1", "result": 2 }
+
+            var lastCalc = await _archiver.GetLastCalculation();
+            return Ok(MapResult(lastCalc));
+        }
+
+        private static MappedResult MapResult(Equation clc)
+        {
+            var result = new MappedResult()
+            {
+                Result = clc.GetResult(),
+                Equation = clc.ToString()
+            };
+
+            return result;
+        }
+
+        public class MappedResult
+        {
+            public decimal Result { get; set; }
+            public string Equation { get; set; }
+        }
+
+
+        [HttpGet]
         [Route("getresult")]
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(decimal))]
-        public IActionResult GetResult()
+        public async Task<IActionResult> GetResult()
         {
             try
             {
                 var builtCalculation = _builder.Build();
 
-                _archiver.AddCalculation(builtCalculation);
+                await _archiver.AddCalculation(builtCalculation);
 
                 _builder.Reset();
 
@@ -101,7 +130,6 @@ namespace lukaKry.Calc.API.Controllers
             {
                 return StatusCode(405, "nothing yet to calculate");
             }
-
         }
     }
 }

@@ -4,6 +4,7 @@ using lukaKry.Calc.Library.Logic.CalculationsBuilders;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace lukaKry.Calc.Library.UnitTests
 {
@@ -33,11 +34,7 @@ namespace lukaKry.Calc.Library.UnitTests
         public void GetResult_CurrentCalculationNotNull_ReturnsDecimalValue()
         {
             var builder = new Mock<ICalculationBuilder>();
-            builder.Setup(b => b.Build()).Returns(new Sum()
-            {
-                Arg1 = new Number(1),
-                Arg2 = new Number(1)
-            });
+            builder.Setup(b => b.Build()).Returns(new Equation(new List<ISettableCalculation>(), new List<decimal>()));
 
             _calc = new Calculator(builder.Object);
 
