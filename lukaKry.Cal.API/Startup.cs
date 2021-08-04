@@ -34,6 +34,7 @@ namespace lukaKry.Calc.API
             services.AddDbContext<CalculationDataContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
             services.AddSingleton<CalculationsFactoryProvider>();
+            services.AddScoped<CalculatorService>();
             services.AddSingleton<ICalculationBuilder, EquationCalculationBuilder>();
             services.AddScoped<IRegistry, DatabaseArchiver>();
 

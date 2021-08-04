@@ -1,4 +1,5 @@
 ﻿using lukaKry.Calc.API.DataAccess;
+using lukaKry.Calc.API.Models;
 using lukaKry.Calc.API.Services;
 using lukaKry.Calc.Library.Logic;
 using lukaKry.Calc.Library.Logic.Calculations;
@@ -17,22 +18,24 @@ namespace lukaKry.Calc.API.Controllers
     {
         private ICalculationBuilder _builder;
         private readonly IRegistry _archiver;
-        private readonly CalculationsFactoryProvider _provider;
+        private readonly CalculatorService _calculatorService;
 
-        public CalculationsController(ICalculationBuilder builder, IRegistry archiver, CalculationsFactoryProvider provider)
+        public CalculationsController(ICalculationBuilder builder, IRegistry archiver, CalculatorService calculatorService)
         {
             _archiver = archiver;
             _builder = builder;
-            _provider = provider;
+            _calculatorService = calculatorService;
         }
 
+
+        #region unusedActions
         [HttpPost]
         [Route("addnum")]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]       // korzystanie z atrybutów jest szczególnie przydatne przy automatycznym generowaniu openAPI swagger specification 
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]     // tutaj widać, że mam przewidziane dwa typy zwrotu, więc IActionResult jest dobrym wyborem
-        public IActionResult AddNumber([FromBody] string number)    // IActionResult jest odpowiednim typem w momencie, gdy nasza metoda moze zwrócić różne typy odpowiedzi
+        [ProducesResponseType(StatusCodes.Status202Accepted)]        
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]     
+        public IActionResult AddNumber([FromBody] string number)    
         {
-            if(!decimal.TryParse(number, out decimal parsedNumber)) 
+            if (!decimal.TryParse(number, out decimal parsedNumber))
             {
                 return BadRequest("Not a correct number format");
             }
@@ -109,27 +112,30 @@ namespace lukaKry.Calc.API.Controllers
             public string Equation { get; set; }
         }
 
+        #endregion
 
-        [HttpGet]
-        [Route("getresult")]
-        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(decimal))]
-        public async Task<IActionResult> GetResult()
+        [HttpPost]
+        [Route("solve")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EquationDTO))]
+        public IActionResult Calculate(EquationDTO equation)
         {
             try
             {
-                var builtCalculation = _builder.Build();
-
-                await _archiver.AddCalculation(builtCalculation);
-
-                _builder.Reset();
-
-                return Ok(builtCalculation.GetResult());
+                equation = _calculatorService.Evaluate(equation);
+                return Ok(equation);
             }
-            catch (InvalidOperationException)
+            catch (ArgumentException e)
             {
-                return StatusCode(405, "nothing yet to calculate");
+                return BadRequest(e.Message);
+            }
+            catch(DivideByZeroException e)
+            {
+                return BadRequest(e.Message);
             }
         }
+
     }
+
+    
 }

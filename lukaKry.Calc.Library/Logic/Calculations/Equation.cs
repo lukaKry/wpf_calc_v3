@@ -21,11 +21,6 @@ namespace lukaKry.Calc.Library.Logic.Calculations
         public decimal GetResult() => _result;
         public string GetSymbol() => "=";
 
-        /*
-        [JsonConstructor]
-        public Equation(List<ISettableCalculation> Calcs, List<decimal> Nums, decimal res) =>
-             (_calcs, _nums, _result) = (Calcs, Nums, res);
-        */
 
         public Equation(List<ISettableCalculation> calcs, List<decimal> nums)
         {
@@ -63,9 +58,8 @@ namespace lukaKry.Calc.Library.Logic.Calculations
 
             if (_calcs.Count() < _nums.Count()) sb.Append(_nums[^1]);
 
-            sb.Remove(0, 6);
 
-            return $"{sb} = {_result}";
+            return sb.ToString();
         }
 
         private decimal Solve(List<ISettableCalculation> calcs, List<decimal> nums)
