@@ -1,6 +1,7 @@
 ﻿using lukaKry.Calc.API.DataAccess;
 using lukaKry.Calc.API.Models;
 using lukaKry.Calc.API.Services;
+using lukaKry.Calc.Library.API;
 using lukaKry.Calc.Library.Logic;
 using lukaKry.Calc.Library.Logic.Calculations;
 using Microsoft.AspNetCore.Http;
@@ -123,6 +124,7 @@ namespace lukaKry.Calc.API.Controllers
             try
             {
                 equation = _calculatorService.Evaluate(equation);
+                _archiver.
                 return Ok(equation);
             }
             catch (ArgumentException e)

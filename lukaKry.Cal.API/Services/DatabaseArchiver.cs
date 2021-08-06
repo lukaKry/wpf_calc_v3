@@ -1,4 +1,6 @@
 ﻿using lukaKry.Calc.API.DataAccess;
+using lukaKry.Calc.API.Models;
+using lukaKry.Calc.Library.API;
 using lukaKry.Calc.Library.Logic;
 using lukaKry.Calc.Library.Logic.Calculations;
 using Newtonsoft.Json;
@@ -27,7 +29,11 @@ namespace lukaKry.Calc.API.Services
             await _context.SaveChangesAsync();
         }
 
-        
+        public Task<EquationDTO> AddEquation(EquationDTO equation)
+        {
+            _context.Add
+        }
+
         public async Task<IEnumerable<ICalculation>> GetAll()
         {
             throw new NotImplementedException();
