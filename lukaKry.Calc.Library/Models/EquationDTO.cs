@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace lukaKry.Calc.API.Models
+namespace lukaKry.Calc.Library.Models
 {
     public class EquationDTO
     {
+        public int Id { get; set; }
         public decimal[] Numbers { get; set; }
         public string[] Symbols { get; set; }
         public string Equation { get; set; }

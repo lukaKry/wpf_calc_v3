@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using lukaKry.Calc.Library.Interfaces;
 using lukaKry.Calc.Library.Logic;
 using NUnit.Framework;
 

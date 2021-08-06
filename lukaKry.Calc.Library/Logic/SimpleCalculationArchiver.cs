@@ -1,4 +1,6 @@
-﻿using lukaKry.Calc.Library.Logic.Calculations;
+﻿using lukaKry.Calc.Library.Interfaces;
+using lukaKry.Calc.Library.Logic.Calculations;
+using lukaKry.Calc.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +37,11 @@ namespace lukaKry.Calc.Library.Logic
         }
 
         Task<Equation> IRegistry.GetLastCalculation()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<EquationDTO> AddEquation(EquationDTO equation)
         {
             throw new NotImplementedException();
         }

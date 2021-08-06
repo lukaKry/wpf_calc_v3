@@ -1,8 +1,9 @@
 ﻿using lukaKry.Calc.API.DataAccess;
 using lukaKry.Calc.API.Models;
-using lukaKry.Calc.Library.API;
+using lukaKry.Calc.Library.Interfaces;
 using lukaKry.Calc.Library.Logic;
 using lukaKry.Calc.Library.Logic.Calculations;
+using lukaKry.Calc.Library.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,19 +20,35 @@ namespace lukaKry.Calc.API.Services
 
         public async Task AddCalculation(Equation calc)
         {
-            string jsonCalc = JsonConvert.SerializeObject(calc, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+            //string jsonCalc = JsonConvert.SerializeObject(calc, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
 
-            await _context.CalculationRecords.AddAsync(new CalculationRecord()
-            {
-                Calculation = jsonCalc
-            });
+            //await _context.CalculationRecords.AddAsync(new CalculationRecord()
+            //{
+            //    Calculation = jsonCalc
+            //});
 
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
+            throw new NotImplementedException();
+
         }
 
-        public Task<EquationDTO> AddEquation(EquationDTO equation)
+        public async Task<EquationDTO> AddEquation(EquationDTO equation)
         {
-            _context.Add
+
+            EquationRecord equationRecord = new ()
+            {
+                Numbers = equation.Numbers.ToList(),
+                Symbols = equation.Symbols.ToList(),
+                Result = equation.Result,
+                Equation = equation.Equation
+            };
+
+            await _context.Equations.AddAsync(equationRecord);
+            await _context.SaveChangesAsync();
+
+            equation.Id = equationRecord.Id;
+
+            return equation;
         }
 
         public async Task<IEnumerable<ICalculation>> GetAll()
@@ -43,16 +60,13 @@ namespace lukaKry.Calc.API.Services
 
         public async Task<Equation> GetLastCalculation()
         {
-            string serializedCalc = _context.CalculationRecords.OrderBy(p => p.Id).Last().Calculation;
+            //string serializedCalc = _context.CalculationRecords.OrderBy(p => p.Id).Last().Calculation;
 
-            var equation = JsonConvert.DeserializeObject<Equation>(serializedCalc, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+            //var equation = JsonConvert.DeserializeObject<Equation>(serializedCalc, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
 
-            return equation;
-        }
+            //return equation;
+            throw new NotImplementedException();
 
-        public string GetTest()
-        {
-            return _context.CalculationRecords.Last().Calculation;
         }
     }
 }

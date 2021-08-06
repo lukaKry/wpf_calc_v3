@@ -1,6 +1,7 @@
 ﻿using lukaKry.Calc.API.Models;
 using lukaKry.Calc.Library.Logic;
 using lukaKry.Calc.Library.Logic.Calculations;
+using lukaKry.Calc.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

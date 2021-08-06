@@ -9,8 +9,8 @@ using lukaKry.Calc.API.DataAccess;
 namespace lukaKry.Calc.API.Migrations
 {
     [DbContext(typeof(CalculationDataContext))]
-    [Migration("20210723072550_initialMigration")]
-    partial class initialMigration
+    [Migration("20210806105517_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,20 +20,29 @@ namespace lukaKry.Calc.API.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("lukaKry.Calc.API.DataAccess.CalculationRecord", b =>
+            modelBuilder.Entity("lukaKry.Calc.API.Models.EquationRecord", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Calculation")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<string>("Equation")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Numbers")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Result")
+                        .HasColumnType("decimal(10,10)");
+
+                    b.Property<string>("Symbols")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CalculationRecords");
+                    b.ToTable("Equations");
                 });
 #pragma warning restore 612, 618
         }

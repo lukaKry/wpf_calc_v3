@@ -1,9 +1,10 @@
 ﻿using lukaKry.Calc.API.DataAccess;
 using lukaKry.Calc.API.Models;
 using lukaKry.Calc.API.Services;
-using lukaKry.Calc.Library.API;
+using lukaKry.Calc.Library.Interfaces;
 using lukaKry.Calc.Library.Logic;
 using lukaKry.Calc.Library.Logic.Calculations;
+using lukaKry.Calc.Library.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -76,13 +77,13 @@ namespace lukaKry.Calc.API.Controllers
         }
 
 
-        [HttpGet]
-        [Route("getall")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CalculationRecord>))]
-        public IActionResult GetAllCalculationRecords()
-        {
-            return Ok(_archiver.GetAll());
-        }
+        //[HttpGet]
+        //[Route("getall")]
+        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CalculationRecord>))]
+        //public IActionResult GetAllCalculationRecords()
+        //{
+        //    return Ok(_archiver.GetAll());
+        //}
 
         [HttpGet]
         [Route("getlast")]
@@ -124,7 +125,7 @@ namespace lukaKry.Calc.API.Controllers
             try
             {
                 equation = _calculatorService.Evaluate(equation);
-                _archiver.
+                _archiver.AddEquation(equation);
                 return Ok(equation);
             }
             catch (ArgumentException e)
