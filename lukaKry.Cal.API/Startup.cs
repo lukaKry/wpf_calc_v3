@@ -37,7 +37,7 @@ namespace lukaKry.Calc.API
             services.AddSingleton<CalculationsFactoryProvider>();
             services.AddScoped<CalculatorService>();
             services.AddSingleton<ICalculationBuilder, EquationCalculationBuilder>();
-            services.AddScoped<IRegistry, DatabaseArchiver>();
+            services.AddScoped<IEquationsRepository, DatabaseArchiver>();
 
             services.AddCors(options => options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 

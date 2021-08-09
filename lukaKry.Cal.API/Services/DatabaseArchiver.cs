@@ -12,30 +12,17 @@ using System.Threading.Tasks;
 
 namespace lukaKry.Calc.API.Services
 {
-    public class DatabaseArchiver : IRegistry
+    
+
+    public class DatabaseArchiver : IEquationsRepository
     {
         private readonly CalculationDataContext _context;
         public DatabaseArchiver(CalculationDataContext context) => _context = context;
 
 
-        public async Task AddCalculation(Equation calc)
-        {
-            //string jsonCalc = JsonConvert.SerializeObject(calc, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-
-            //await _context.CalculationRecords.AddAsync(new CalculationRecord()
-            //{
-            //    Calculation = jsonCalc
-            //});
-
-            //await _context.SaveChangesAsync();
-            throw new NotImplementedException();
-
-        }
-
         public EquationDTO AddEquation(EquationDTO equation)
         {
-
-            EquationRecord equationRecord = new ()
+            EquationRecord equationRecord = new()
             {
                 Numbers = equation.Numbers.ToList(),
                 Symbols = equation.Symbols.ToList(),
@@ -51,22 +38,8 @@ namespace lukaKry.Calc.API.Services
             return equation;
         }
 
-        public async Task<IEnumerable<ICalculation>> GetAll()
-        {
-            throw new NotImplementedException();
-           // _context.CalculationRecords.Select(p => p.Calculation);
+        public List<EquationRecord> GetAllEquations() => _context.Equations.ToList();
 
-        }
-
-        public async Task<Equation> GetLastCalculation()
-        {
-            //string serializedCalc = _context.CalculationRecords.OrderBy(p => p.Id).Last().Calculation;
-
-            //var equation = JsonConvert.DeserializeObject<Equation>(serializedCalc, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-
-            //return equation;
-            throw new NotImplementedException();
-
-        }
+        public EquationRecord GetLastEquation() => _context.Equations.OrderBy(x => x.Id).Last();
     }
 }

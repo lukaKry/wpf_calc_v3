@@ -15,13 +15,13 @@ namespace lukaKry.Calc.Library.Logic
         private List<ICalculation> _archive = new();
 
 
-        public async Task AddCalculation(Equation calculation)
+        public void AddCalculation(ICalculation calculation)
         {
             Logger.Info("Calculation archived successfully.");
             _archive.Add(calculation);
         }
 
-        public async Task<ICalculation> GetLastCalculation()
+        public ICalculation GetLastCalculation()
         {
             if (!_archive.Any())
             {
@@ -31,19 +31,7 @@ namespace lukaKry.Calc.Library.Logic
             return _archive.Last();
         }
 
-        public async Task<IEnumerable<ICalculation>> GetAll()
-        {
-            return _archive;
-        }
+        public IEnumerable<ICalculation> GetAll() =>  _archive;
 
-        Task<Equation> IRegistry.GetLastCalculation()
-        {
-            throw new NotImplementedException();
-        }
-
-        public EquationDTO AddEquation(EquationDTO equation)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

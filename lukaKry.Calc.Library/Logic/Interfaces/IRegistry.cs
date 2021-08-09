@@ -8,9 +8,8 @@ namespace lukaKry.Calc.Library.Interfaces
 {
     public interface IRegistry
     {
-        Task<Equation> GetLastCalculation();
-        Task AddCalculation(Equation equation);
-        Task<IEnumerable<ICalculation>> GetAll();
-        EquationDTO AddEquation(EquationDTO equation);
+        ICalculation GetLastCalculation();
+        void AddCalculation(ICalculation calculation);
+        IEnumerable<ICalculation> GetAll();
     }
 }

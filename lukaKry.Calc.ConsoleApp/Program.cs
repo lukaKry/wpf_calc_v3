@@ -25,7 +25,7 @@ namespace lukaKry.Calc.ConsoleApp
             }
         }
 
-        private async static Task RunCalculationCycle(BuilderMode builderMode)
+        private static void RunCalculationCycle(BuilderMode builderMode)
         {
             do
             {
@@ -46,8 +46,8 @@ namespace lukaKry.Calc.ConsoleApp
 
                 try
                 {
-                    await _archiver.AddCalculation(_builder.Build());
-                    Console.WriteLine( await _archiver.GetLastCalculation());
+                    _archiver.AddCalculation(_builder.Build());
+                    Console.WriteLine( _archiver.GetLastCalculation());
                 }
                 catch (Exception e)
                 {
@@ -76,9 +76,9 @@ namespace lukaKry.Calc.ConsoleApp
             return answer.ToUpper() == "Y";
         }
 
-        private async static Task ShowCalculationsHistory(SimpleCalculationArchiver archiver)
+        private static void ShowCalculationsHistory(SimpleCalculationArchiver archiver)
         {
-            var history = await archiver.GetAll();
+            var history = archiver.GetAll();
 
             foreach (var calc in history)
             {

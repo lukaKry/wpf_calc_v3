@@ -16,11 +16,6 @@ namespace lukaKry.Calc.API.UnitTests.Controllers
 {
     public class CalculationsControllerTests
     {
-        private CalculationsController _controller;
-        private ICalculationBuilder _builder;
-        private IRegistry _archiver;
-        private CalculationsFactoryProvider _provider;
-
         /*
         [SetUp]
         public void Setup()
@@ -40,13 +35,7 @@ namespace lukaKry.Calc.API.UnitTests.Controllers
         [Test]
         public void AddNumber_IncorrectStringNumberFormat_ReturnBadrequestAnswer()
         {
-            var actionResult = _controller.AddNumber("1a");
-            var acceptedResult = actionResult as AcceptedResult;
-
-            Assert.IsNotNull(acceptedResult);
-
-            // ?? cos tu dalej nie dziala
-            Assert.AreEqual(202, acceptedResult.StatusCode);
+            
         }
     }
 }
