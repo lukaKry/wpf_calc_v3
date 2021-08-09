@@ -11,7 +11,7 @@ namespace lukaKry.Calc.API.Models
         public List<decimal> Numbers { get; set; }
         public List<string> Symbols { get; set; }
 
-        [Column(TypeName = "decimal(10,10)")]
+        [Column(TypeName = "decimal(28,14)")]
         public decimal Result { get; set; }
 
         [MaxLength(100)]    

@@ -41,7 +41,7 @@ namespace lukaKry.Calc.Library.Logic
             throw new NotImplementedException();
         }
 
-        public Task<EquationDTO> AddEquation(EquationDTO equation)
+        public EquationDTO AddEquation(EquationDTO equation)
         {
             throw new NotImplementedException();
         }

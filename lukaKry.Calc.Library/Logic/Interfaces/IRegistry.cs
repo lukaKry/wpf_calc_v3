@@ -11,6 +11,6 @@ namespace lukaKry.Calc.Library.Interfaces
         Task<Equation> GetLastCalculation();
         Task AddCalculation(Equation equation);
         Task<IEnumerable<ICalculation>> GetAll();
-        Task<EquationDTO> AddEquation(EquationDTO equation);
+        EquationDTO AddEquation(EquationDTO equation);
     }
 }

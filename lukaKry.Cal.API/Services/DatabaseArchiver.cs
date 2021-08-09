@@ -32,7 +32,7 @@ namespace lukaKry.Calc.API.Services
 
         }
 
-        public async Task<EquationDTO> AddEquation(EquationDTO equation)
+        public EquationDTO AddEquation(EquationDTO equation)
         {
 
             EquationRecord equationRecord = new ()
@@ -43,8 +43,8 @@ namespace lukaKry.Calc.API.Services
                 Equation = equation.Equation
             };
 
-            await _context.Equations.AddAsync(equationRecord);
-            await _context.SaveChangesAsync();
+            _context.Equations.Add(equationRecord);
+            _context.SaveChanges();
 
             equation.Id = equationRecord.Id;
 
