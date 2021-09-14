@@ -32,7 +32,11 @@ namespace lukaKry.Calc.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CalculationDataContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            // local db
+            //services.AddDbContext<CalculationDataContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+
+            // dockerized db
+            services.AddDbContext<CalculationDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
 
             services.AddSingleton<CalculationsFactoryProvider>();
             services.AddScoped<CalculatorService>();
