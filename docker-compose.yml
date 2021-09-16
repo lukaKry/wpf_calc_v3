@@ -1,16 +1,21 @@
-version: '3.4'
-
-services:
-  db: 
-    image: "mcr.microsoft.com/mssql/server:2019-latest"
-    environment: 
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=P@ssword123
-
-  lukakry.calc.api:
-    image: ${DOCKER_REGISTRY-}lukakrycalcapi
-    build:
+version: "3.4"
+services: 
+  nginx:
+    build: 
       context: .
-      dockerfile: lukaKry.Cal.API/Dockerfile
-    depends_on: 
-      - db
+      dockerfile: Dockerfile.Multi.nginx
+    ports: 
+            - 80:80
+    restart: always
+  client:
+    build:
+      context: ./angular-ivy
+      dockerfile: Dockerfile.Multi.angular
+    ports: 
+      - 5000:80
+  dncapi:
+    build: 
+      context: ./lukaKry.Cal.Api
+      dockerfile: Dockerfile.Multi.api
+    ports: 
+      - 3000:80

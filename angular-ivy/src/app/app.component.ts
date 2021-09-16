@@ -3,6 +3,7 @@ import { Component, VERSION } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
+
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
@@ -89,8 +90,11 @@ export class AppComponent {
     console.log(this.equation);
     console.log('------------');
     
+    const urlLocal : string = "https://localhost:5001/api/Calculations/solve";
+    const urlDocker : string = "/api/Calculations/solve";
+
     const headers = {'content-type': 'application/json'};
-    this.httpClient.post("https://localhost:5001/api/Calculations/solve", JSON.stringify(this.equation), {'headers': headers} )
+    this.httpClient.post(urlDocker, JSON.stringify(this.equation), {'headers': headers} )
     .subscribe( 
       (data : EquationDTO) => {
         console.log(data);
