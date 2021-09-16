@@ -33,10 +33,10 @@ namespace lukaKry.Calc.API
         public void ConfigureServices(IServiceCollection services)
         {
             // local db
-            //services.AddDbContext<CalculationDataContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddDbContext<CalculationDataContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
             // dockerized db
-            services.AddDbContext<CalculationDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
+            // services.AddDbContext<CalculationDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
 
             services.AddSingleton<CalculationsFactoryProvider>();
             services.AddScoped<CalculatorService>();
